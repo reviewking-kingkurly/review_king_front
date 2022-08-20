@@ -1,9 +1,10 @@
 import { Global, css } from '@emotion/react';
 
 const style = css`
-  * {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
-    -ms-overflow-style: none;
     ::-webkit-scrollbar {
       display: none;
     }
@@ -11,6 +12,8 @@ const style = css`
 
   body {
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    padding: 0;
+    margin: 0;
   }
 
   a {
