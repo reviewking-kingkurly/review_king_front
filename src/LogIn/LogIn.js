@@ -1,13 +1,12 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import ImageListItem from '@mui/material/ImageListItem';
+import { CardMedia, ImageList } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
@@ -34,12 +33,20 @@ const LogIn = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             &#128081; 리뷰왕 킹컬리 &#128081;
-          </Typography>
+          </Typography> */}
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <Logo src="/Logo.png" />
+          </Box>
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -82,6 +89,11 @@ const LogIn = () => {
 };
 
 export default LogIn;
+
+const Logo = styled('img')`
+  width: 25rem;
+  height: 11rem;
+`;
 
 const IdInput = styled(TextField)``;
 const PwInput = styled(TextField)``;
