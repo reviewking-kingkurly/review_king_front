@@ -1,9 +1,9 @@
-import EmotionTest from './EmotionTest';
+import ReviewWrite from './ReviewWrite';
 
 function App() {
   return (
     <div>
-      <EmotionTest />
+      <ReviewWrite />
     </div>
   );
 }
