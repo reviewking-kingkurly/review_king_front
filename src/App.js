@@ -1,10 +1,14 @@
-import EmotionTest from './EmotionTest';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import Search from './pages/Search/Search';
 
 function App() {
   return (
-    <div>
-      <EmotionTest />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/search" element={<Search />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
