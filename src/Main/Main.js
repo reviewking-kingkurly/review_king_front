@@ -43,8 +43,8 @@ const Main = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          width: '1050px',
-          height: '140px',
+          width: '65.625rem',
+          height: '8.75rem',
         }}
       >
         <Box
@@ -72,11 +72,11 @@ const Main = () => {
                   sx={{
                     display: 'flex',
                     maxWidth: 'xl',
-                    height: '300px',
+                    height: '18.75rem',
                     overflow: 'auto',
                   }}
                 >
-                  <Box sx={{ width: '144px', mr: '18px' }}>
+                  <Box sx={{ width: '9rem', mr: '1.125rem' }}>
                     <RectangleImg src="/Mock_Rectangle.png" />
                     <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
                     <ReviewButton variant="outlined">
@@ -145,11 +145,11 @@ const Main = () => {
                   sx={{
                     display: 'flex',
                     maxWidth: 'xl',
-                    height: '300px',
+                    height: '18.75rem',
                     overflow: 'auto',
                   }}
                 >
-                  <Box sx={{ width: '144px', mr: '18px' }}>
+                  <Box sx={{ width: '9rem', mr: '1.125rem' }}>
                     <RectangleImg src="/Mock_Rectangle.png" />
                     <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
                     <ReviewButton variant="outlined">
@@ -205,8 +205,8 @@ const Main = () => {
         </Box>
         <Divider
           sx={{
-            marginTop: '52px',
-            marginBottom: '52px',
+            marginTop: '3.25rem',
+            marginBottom: '3.25rem',
           }}
         />
         <div>
@@ -218,9 +218,9 @@ const Main = () => {
                 display: 'flex',
                 alignItems: 'center',
                 maxWidth: 'xl',
-                height: '180px',
+                height: '11.25rem',
                 overflow: 'auto',
-                marginLeft: '-10px',
+                marginLeft: '-0.625rem',
               }}
             >
               <ItemWrapper>
@@ -287,8 +287,8 @@ const Main = () => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              width: '1050px',
-              height: '435px',
+              width: '65.625rem',
+              height: '27.188rem',
               overflow: 'auto',
             }}
           >
@@ -298,7 +298,7 @@ const Main = () => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 maxWidth: 'xl',
-                height: '30px',
+                height: '1.875rem',
               }}
             >
               <Stack direction="row" spacing={1}>
@@ -331,11 +331,11 @@ const Main = () => {
             <Container
               sx={{
                 display: 'flex',
-                width: '1050px',
-                height: '300px',
+                width: '65.625rem',
+                height: '18.75rem',
                 overflow: 'auto',
-                marginTop: '28px',
-                marginLeft: '-10px',
+                marginTop: '1.75rem',
+                marginLeft: '-0.625rem',
               }}
             >
               <Box>
@@ -343,16 +343,16 @@ const Main = () => {
               </Box>
               <Container
                 sx={{
-                  width: '792px',
-                  height: '250px',
+                  width: '49.5rem',
+                  height: '15.625rem',
                   display: 'flex',
                   overflow: 'auto',
                 }}
               >
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
+                <Box sx={{ height: '13.75rem', width: '9rem', mr: '1.125rem' }}>
                   <RectangleImg src="/Mock_Rectangle.png" />
                   <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
+                  <Price sx={{ mt: '-0.625rem' }}>3,450원</Price>
                 </Box>
                 <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
                   <RectangleImg src="/Mock_Rectangle.png" />
@@ -401,30 +401,30 @@ const Main = () => {
 export default Main;
 
 const Banner = styled('img')`
-  width: 1050px;
-  height: 140px;
+  width: 65.625rem;
+  height: 8.75rem;
 `;
 
 const Heading = styled('p')`
   font-weight: 600;
-  font-size: 24px;
-  line-height: 15px;
-  margin-bottom: 1px;
+  font-size: 1.5rem;
+  line-height: 0.938rem;
+  margin-bottom: 0.063rem;
 `;
 
 const SubText = styled('p')`
   font-weight: 500;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #999999;
 `;
 
 const ReviewWrapper = styled('div')`
-  margin-top: 32px;
+  margin-top: 2rem;
 `;
 
 const RectangleImg = styled('img')`
-  width: 144px;
-  height: 144px;
+  width: 9rem;
+  height: 9rem;
   border-radius: 8px;
 `;
 
@@ -432,10 +432,10 @@ const ItemWrapper = styled(Box)`
   display: flex;
   align-items: start;
   text-overflow: ellipsis;
-  width: 310px;
-  height: 144px;
+  width: 19.375rem;
+  height: 9rem;
   max-width: md;
-  margin-right: 18px;
+  margin-right: 1.125rem;
 
   background: #ffffff;
   border: 1px solid #eeeeee;
@@ -444,50 +444,50 @@ const ItemWrapper = styled(Box)`
 `;
 
 const ReviewBox = styled(Box)`
-  padding-left: 10px;
-  padding-right: 5px;
+  padding-left: 0.625rem;
+  padding-right: 0.313rem;
 `;
 
 const ItemTitle = styled('p')`
-  width: 140px;
-  height: 33px;
+  width: 8.75rem;
+  height: 2.063rem;
 
   font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 0.75rem;
+  line-height: 1rem;
 
   color: #333333;
 `;
 
 const Price = styled('p')`
-  width: 53px;
-  height: 19px;
+  width: 3.313rem;
+  height: 1.188rem;
 
   font-weight: 600;
-  font-size: 14px;
-  line-height: 19px;
+  font-size: 0.875rem;
+  line-height: 1.188rem;
 
   color: #5e0080;
 `;
 
 const Review = styled('p')`
-  width: 140px;
-  height: 35px;
+  width: 8.75rem;
+  height: 2.188rem;
 
   font-weight: 400;
-  font-size: 10px;
-  line-height: 14px;
+  font-size: 0.625rem;
+  line-height: 0.875rem;
   overflow-y: hidden;
 
   color: #333333;
 `;
 
 const ProductName = styled('p')`
-  width: 144px;
-  height: 33px;
+  width: 9rem;
+  height: 2.063rem;
   font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 0.75rem;
+  line-height: 1rem;
 
   color: #333333;
 `;
@@ -495,8 +495,8 @@ const ProductName = styled('p')`
 const ReviewButton = styled(Button)`
   box-sizing: border-box;
 
-  width: 144px;
-  height: 32px;
+  width: 9rem;
+  height: 2rem;
 
   color: #5e0080;
   background: #ffffff;
@@ -510,16 +510,16 @@ const ReviewButton = styled(Button)`
 
 const CategoryChip = styled(Chip)`
   font-weight: 600;
-  font-size: 10px;
+  font-size: 0.625rem;
 
-  width: 75px;
-  height: 27px;
+  width: 4.688rem;
+  height: 1.688rem;
 
   color: #5e0080;
 `;
 
 const ChartImg = styled('img')`
-  width: 220px;
-  height: 220px;
-  margin-right: 38px;
+  width: 13.75rem;
+  height: 13.75rem;
+  margin-right: 2.375rem;
 `;
