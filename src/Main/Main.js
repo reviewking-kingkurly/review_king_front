@@ -4,14 +4,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import OrderHistory from './components/OrderHistory';
+import BestReviewItem from './components/BestReviewItem';
+import CategoryReviewItem from './components/CategoryReviewItem';
 
 const Main = () => {
   const handleClickChip = () => {
@@ -56,151 +53,8 @@ const Main = () => {
           <Heading>리뷰 작성하기 &#9997;</Heading>
           <SubText>BEST 후기 작성하고 적립금 받아가세요!</SubText>
           <ReviewWrapper>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Box>
-                  <Typography>8월 19일 주문</Typography>
-                  <SubText>주문번호 16234579790112</SubText>
-                </Box>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Container
-                  sx={{
-                    display: 'flex',
-                    maxWidth: 'xl',
-                    height: '18.75rem',
-                    overflow: 'auto',
-                  }}
-                >
-                  <Box sx={{ width: '9rem', mr: '1.125rem' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                </Container>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Box>
-                  <Typography>8월 18일 주문</Typography>
-                  <SubText>주문번호 16234579790112</SubText>
-                </Box>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Container
-                  sx={{
-                    display: 'flex',
-                    maxWidth: 'xl',
-                    height: '18.75rem',
-                    overflow: 'auto',
-                  }}
-                >
-                  <Box sx={{ width: '9rem', mr: '1.125rem' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                  <Box sx={{ width: '144px', mr: '18px' }}>
-                    <RectangleImg src="/Mock_Rectangle.png" />
-                    <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                    <ReviewButton variant="outlined">
-                      리뷰 작성하기
-                    </ReviewButton>
-                  </Box>
-                </Container>
-              </AccordionDetails>
-            </Accordion>
+            <OrderHistory />
+            <OrderHistory />
           </ReviewWrapper>
         </Box>
         <Divider
@@ -223,54 +77,10 @@ const Main = () => {
                 marginLeft: '-0.625rem',
               }}
             >
-              <ItemWrapper>
-                <RectangleImg src="/Mock_Rectangle.png" />
-                <ReviewBox>
-                  <ItemTitle>[DOLE] 스위티오 실속 파인애플 700g(1통)</ItemTitle>
-                  <Price>3,450원</Price>
-                  <Review>
-                    파인애플 짱맛있어요 하와이안 피자 짱짱 파인애플 짱맛있어요
-                    하와이안 피자 짱짱 파인애플 짱맛있어요 하와이안 피자 짱짱
-                    파인애플 짱맛있어요 하와이안 피자 짱짱
-                  </Review>
-                </ReviewBox>
-              </ItemWrapper>
-              <ItemWrapper>
-                <RectangleImg src="/Mock_Rectangle.png" />
-                <ReviewBox>
-                  <ItemTitle>[DOLE] 스위티오 실속 파인애플 700g(1통)</ItemTitle>
-                  <Price>3,450원</Price>
-                  <Review>
-                    파인애플 짱맛있어요 하와이안 피자 짱짱 파인애플 짱맛있어요
-                    하와이안 피자 짱짱 파인애플 짱맛있어요 하와이안 피자 짱짱
-                    파인애플 짱맛있어요 하와이안 피자 짱짱
-                  </Review>
-                </ReviewBox>
-              </ItemWrapper>
-              <ItemWrapper>
-                <RectangleImg src="/Mock_Rectangle.png" />
-                <ReviewBox>
-                  <ItemTitle>[DOLE] 스위티오 실속 파인애플 700g(1통)</ItemTitle>
-                  <Price>3,450원</Price>
-                  <Review>
-                    파인애플 짱맛있어요 하와이안 피자 짱짱 파인애플 짱맛있어요
-                    하와이안 피자 짱짱 파인애플 짱맛있어요 하와이안 피자 짱짱
-                    파인애플 짱맛있어요 하와이안 피자 짱짱
-                  </Review>
-                </ReviewBox>
-              </ItemWrapper>
-              <ItemWrapper>
-                <RectangleImg src="/Mock_Rectangle.png" />
-                <ReviewBox>
-                  <ItemTitle>[DOLE] 스위티오 실속 파인애플 700g(1통)</ItemTitle>
-                  <Price>3,450원</Price>
-                  <Review>
-                    파인애플 짱맛있어요 하와이안 피자 짱짱 파인애플 짱맛있어요
-                    하와이안 피자 짱짱 파인애플 짱맛있어요 하와이안 피자 짱짱
-                    파인애플 짱맛있어요 하와이안 피자 짱짱
-                  </Review>
-                </ReviewBox>
-              </ItemWrapper>
+              <BestReviewItem />
+              <BestReviewItem />
+              <BestReviewItem />
+              <BestReviewItem />
             </Container>
           </ReviewWrapper>
         </div>
@@ -349,46 +159,10 @@ const Main = () => {
                   overflow: 'auto',
                 }}
               >
-                <Box sx={{ height: '13.75rem', width: '9rem', mr: '1.125rem' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-0.625rem' }}>3,450원</Price>
-                </Box>
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
-                </Box>
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
-                </Box>
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
-                </Box>
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
-                </Box>
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
-                </Box>
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
-                </Box>
-                <Box sx={{ height: '220px', width: '144px', mr: '18px' }}>
-                  <RectangleImg src="/Mock_Rectangle.png" />
-                  <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-                  <Price sx={{ mt: '-10px' }}>3,450원</Price>
-                </Box>
+                <CategoryReviewItem />
+                <CategoryReviewItem />
+                <CategoryReviewItem />
+                <CategoryReviewItem />
               </Container>
             </Container>
           </ReviewWrapper>
@@ -420,92 +194,6 @@ const SubText = styled('p')`
 
 const ReviewWrapper = styled('div')`
   margin-top: 2rem;
-`;
-
-const RectangleImg = styled('img')`
-  width: 9rem;
-  height: 9rem;
-  border-radius: 8px;
-`;
-
-const ItemWrapper = styled(Box)`
-  display: flex;
-  align-items: start;
-  text-overflow: ellipsis;
-  width: 19.375rem;
-  height: 9rem;
-  max-width: md;
-  margin-right: 1.125rem;
-
-  background: #ffffff;
-  border: 1px solid #eeeeee;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-`;
-
-const ReviewBox = styled(Box)`
-  padding-left: 0.625rem;
-  padding-right: 0.313rem;
-`;
-
-const ItemTitle = styled('p')`
-  width: 8.75rem;
-  height: 2.063rem;
-
-  font-weight: 600;
-  font-size: 0.75rem;
-  line-height: 1rem;
-
-  color: #333333;
-`;
-
-const Price = styled('p')`
-  width: 3.313rem;
-  height: 1.188rem;
-
-  font-weight: 600;
-  font-size: 0.875rem;
-  line-height: 1.188rem;
-
-  color: #5e0080;
-`;
-
-const Review = styled('p')`
-  width: 8.75rem;
-  height: 2.188rem;
-
-  font-weight: 400;
-  font-size: 0.625rem;
-  line-height: 0.875rem;
-  overflow-y: hidden;
-
-  color: #333333;
-`;
-
-const ProductName = styled('p')`
-  width: 9rem;
-  height: 2.063rem;
-  font-weight: 600;
-  font-size: 0.75rem;
-  line-height: 1rem;
-
-  color: #333333;
-`;
-
-const ReviewButton = styled(Button)`
-  box-sizing: border-box;
-
-  width: 9rem;
-  height: 2rem;
-
-  color: #5e0080;
-  background: #ffffff;
-  &:hover {
-    color: #ffffff;
-    background-color: #5e0080;
-    opacity: 0.8;
-  }
-  border: 1px solid #5e0080;
 `;
 
 const CategoryChip = styled(Chip)`
