@@ -144,7 +144,7 @@ const Main = () => {
                 <Container
                   sx={{
                     display: 'flex',
-                    width: '1050px',
+                    maxWidth: 'xl',
                     height: '300px',
                     overflow: 'auto',
                   }}
@@ -217,12 +217,24 @@ const Main = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                width: '1050px',
+                maxWidth: 'xl',
                 height: '180px',
                 overflow: 'auto',
                 marginLeft: '-10px',
               }}
             >
+              <ItemWrapper>
+                <RectangleImg src="/Mock_Rectangle.png" />
+                <ReviewBox>
+                  <ItemTitle>[DOLE] 스위티오 실속 파인애플 700g(1통)</ItemTitle>
+                  <Price>3,450원</Price>
+                  <Review>
+                    파인애플 짱맛있어요 하와이안 피자 짱짱 파인애플 짱맛있어요
+                    하와이안 피자 짱짱 파인애플 짱맛있어요 하와이안 피자 짱짱
+                    파인애플 짱맛있어요 하와이안 피자 짱짱
+                  </Review>
+                </ReviewBox>
+              </ItemWrapper>
               <ItemWrapper>
                 <RectangleImg src="/Mock_Rectangle.png" />
                 <ReviewBox>
@@ -280,31 +292,42 @@ const Main = () => {
               overflow: 'auto',
             }}
           >
-            <Stack direction="row" spacing={1}>
-              <CategoryChip
-                label="고구마"
-                variant="outlined"
-                disabled
-                onClick={handleClickChip}
-              />
-              <CategoryChip
-                label="생선류"
-                variant="outlined"
-                onClick={handleClickChip}
-              />
-              <CategoryChip
-                label="돼지고기"
-                variant="outlined"
-                disabled
-                onClick={handleClickChip}
-              />
-              <CategoryChip
-                label="계랸류"
-                variant="outlined"
-                disabled
-                onClick={handleClickChip}
-              />
-            </Stack>
+            <Container
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                maxWidth: 'xl',
+                height: '30px',
+              }}
+            >
+              <Stack direction="row" spacing={1}>
+                <CategoryChip
+                  label="고구마"
+                  variant="outlined"
+                  disabled
+                  onClick={handleClickChip}
+                />
+                <CategoryChip
+                  label="생선류"
+                  variant="outlined"
+                  onClick={handleClickChip}
+                />
+                <CategoryChip
+                  label="돼지고기"
+                  variant="outlined"
+                  disabled
+                  onClick={handleClickChip}
+                />
+                <CategoryChip
+                  label="계랸류"
+                  variant="outlined"
+                  disabled
+                  onClick={handleClickChip}
+                />
+              </Stack>
+              <Box /> {/*pagination*/}
+            </Container>
             <Container
               sx={{
                 display: 'flex',
@@ -408,7 +431,6 @@ const RectangleImg = styled('img')`
 const ItemWrapper = styled(Box)`
   display: flex;
   align-items: start;
-  overflow: clip;
   text-overflow: ellipsis;
   width: 310px;
   height: 144px;
@@ -422,7 +444,8 @@ const ItemWrapper = styled(Box)`
 `;
 
 const ReviewBox = styled(Box)`
-  padding-left: 13px;
+  padding-left: 10px;
+  padding-right: 5px;
 `;
 
 const ItemTitle = styled('p')`
@@ -449,11 +472,12 @@ const Price = styled('p')`
 
 const Review = styled('p')`
   width: 140px;
-  height: 28px;
+  height: 35px;
 
   font-weight: 400;
   font-size: 10px;
   line-height: 14px;
+  overflow-y: hidden;
 
   color: #333333;
 `;
