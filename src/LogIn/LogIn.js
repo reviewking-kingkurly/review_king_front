@@ -1,58 +1,55 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import ImageListItem from '@mui/material/ImageListItem';
-import { CardMedia, ImageList } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
 const LogIn = () => {
-  const handleSubmit = event => {
+  const navigate = useNavigate();
+  const handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    const userData = {
+      user_email: data.get('email'),
+      user_password: data.get('password'),
+    };
+
+    console.log(userData);
+
+    try {
+      const res = await axios.post(
+        'http://10.58.3.167:8000/users/login',
+        userData
+      );
+      console.log(res);
+
+      if (res.statusText === 'OK') {
+        alert(res.data.message);
+        localStorage.setItem('access_token', res.data.access_token);
+        navigate('/');
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            &#128081; 리뷰왕 킹컬리 &#128081;
-          </Typography> */}
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+        <LoginBox>
+          <LogoWrapper>
             <Logo src="/Logo.png" />
-          </Box>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          </LogoWrapper>
+          <LoginForm component="form" onSubmit={handleSubmit} noValidate>
             <IdInput
               margin="normal"
               required
@@ -73,16 +70,11 @@ const LogIn = () => {
               id="password"
               autoComplete="current-password"
             />
-            <LoginButton
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 4, mb: 2 }}
-            >
+            <LoginButton type="submit" fullWidth variant="contained">
               로그인
             </LoginButton>
-          </Box>
-        </Box>
+          </LoginForm>
+        </LoginBox>
       </Container>
     </ThemeProvider>
   );
@@ -90,15 +82,33 @@ const LogIn = () => {
 
 export default LogIn;
 
+const LoginBox = styled(Box)`
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const LogoWrapper = styled(Box)`
+  margin-top: 8px;
+`;
+
 const Logo = styled('img')`
   width: 25rem;
   height: 11rem;
+`;
+
+const LoginForm = styled(Box)`
+  margin-top: 8px;
 `;
 
 const IdInput = styled(TextField)``;
 const PwInput = styled(TextField)``;
 
 const LoginButton = styled(Button)`
+  margin-top: 32px;
+  margin-bottom: 16px;
+
   color: #5e0080;
   background-color: #ffffff;
   &:hover {
