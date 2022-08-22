@@ -2,18 +2,14 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-const BestReviewItem = () => {
+const BestReviewItem = ({ product, price, review, thumbnail }) => {
   return (
     <ItemWrapper>
-      <RectangleImg src="/Mock_Rectangle.png" />
+      <RectangleImg src={thumbnail} />
       <ReviewBox>
-        <ItemTitle>[DOLE] 스위티오 실속 파인애플 700g(1통)</ItemTitle>
-        <Price>3,450원</Price>
-        <Review>
-          파인애플 짱맛있어요 하와이안 피자 짱짱 파인애플 짱맛있어요 하와이안
-          피자 짱짱 파인애플 짱맛있어요 하와이안 피자 짱짱 파인애플 짱맛있어요
-          하와이안 피자 짱짱
-        </Review>
+        <ItemTitle>{product}</ItemTitle>
+        <Price>{price}원</Price>
+        <Review>{review}</Review>
       </ReviewBox>
     </ItemWrapper>
   );
@@ -28,7 +24,7 @@ const ItemWrapper = styled(Box)`
   width: 19.375rem;
   height: 9rem;
   max-width: md;
-  margin-right: 1.125rem;
+  margin-right: 1.25rem;
 
   background: #ffffff;
   border: 1px solid #eeeeee;
@@ -49,6 +45,7 @@ const ItemTitle = styled('p')`
   font-weight: 600;
   font-size: 0.75rem;
   line-height: 1rem;
+  margin-bottom: -0.2rem;
 
   color: #333333;
 `;
@@ -76,7 +73,9 @@ const Review = styled('p')`
   font-weight: 400;
   font-size: 0.625rem;
   line-height: 0.875rem;
-  overflow-y: hidden;
-
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   color: #333333;
 `;
