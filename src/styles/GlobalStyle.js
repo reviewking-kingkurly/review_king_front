@@ -1,6 +1,8 @@
 import { Global, css } from '@emotion/react';
+import reset from 'styled-reset';
 
 const style = css`
+  ${reset},
   *,
   *::before,
   *::after {
