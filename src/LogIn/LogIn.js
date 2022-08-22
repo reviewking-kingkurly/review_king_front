@@ -13,7 +13,6 @@ const theme = createTheme();
 
 const LogIn = () => {
   const navigate = useNavigate();
-
   const handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -27,13 +26,14 @@ const LogIn = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:8080/users/create',
+        'http://10.58.3.167:8000/users/login',
         userData
       );
+      console.log(res);
 
       if (res.statusText === 'OK') {
         alert(res.data.message);
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('access_token', res.data.access_token);
         navigate('/');
       }
     } catch (error) {
