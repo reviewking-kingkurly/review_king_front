@@ -30,7 +30,8 @@ const ReviewPost = () => {
       .then(res => res.json())
       .then(data => {
         setMockReview(data.results);
-        setSelectedImg(data.results.review_image[0]);
+        data.results.review_image === '' ||
+          setSelectedImg(data.results.review_image[0]);
       });
   }, []);
 
@@ -55,7 +56,7 @@ const ReviewPost = () => {
         {mockReview && (
           <ContentWrapper>
             <TopSide>
-              {review_image && (
+              {review_image.length === 0 || (
                 <ImgWrapper>
                   <BigImage alt="review image" src={selectedImg} />
                   <SmallImage>
@@ -128,6 +129,7 @@ export default ReviewPost;
 
 const TopSide = styled.div`
   ${({ theme }) => theme.flex.flexBox('', '', 'flex-start')}
+  height: 23.75rem;
   margin-bottom: 3.25rem;
   position: relative;
 `;
@@ -354,7 +356,7 @@ const ContentWrapper = styled.div`
 
 const ModalWrapper = styled.div`
   position: relative;
-  width: 83.125rem;
+  /* width: 83.125rem; */
   height: 44.063rem;
   margin: 10vh;
   padding: 4.5rem 8.75rem;
