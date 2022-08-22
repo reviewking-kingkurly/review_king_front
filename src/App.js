@@ -1,16 +1,21 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import Search from './pages/Search/Search';
-import ReviewPost from './pages/Review/ReviewPost';
+import { Routes, Route } from 'react-router-dom';
+import LogIn from './LogIn/LogIn';
+import Main from './Main/Main';
+import NavBar from './NavBar/NavBar';
+import ProductDetail from './ProductDetail/ProductDetail';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
+      <NavBar />
       <Routes>
-        <Route path="/search" element={<Search />} />
-        <Route path="/review_post" element={<ReviewPost />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/products" element={<ProductDetail />} />{' '}
+        {/*<Route path="/products/:id" element={<ProductDetail />} /> */}
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
