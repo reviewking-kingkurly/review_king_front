@@ -256,8 +256,8 @@ const ImgContainer = styled(Container)`
 `;
 
 const ProductImg = styled('img')`
-  width: 430px;
-  height: 552px;
+  width: 26.875rem;
+  height: 34.5rem;
 `;
 
 const RightContainer = styled(Container)``;
@@ -266,23 +266,23 @@ const ProductNameBox = styled(Box)``;
 const PriceBox = styled(Box)``;
 
 const ProductName = styled('p')`
-  width: 292px;
-  height: 33px;
+  width: 18.25rem;
+  height: 2.063rem;
 
   font-weight: 600;
-  font-size: 24px;
-  line-height: 33px;
+  font-size: 1.5rem;
+  line-height: 2.063rem;
 
   color: #000000;
 `;
 
 const Description = styled('p')`
-  width: 174px;
-  height: 19px;
+  width: 10.875rem;
+  height: 1.188rem;
 
   font-weight: 600;
-  font-size: 14px;
-  line-height: 19px;
+  font-size: 0.875rem;
+  line-height: 1.188rem;
 
   color: #cccccc;
 `;
@@ -290,12 +290,12 @@ const Description = styled('p')`
 const Price = styled('p')`
   display: inline-block;
 
-  width: 72px;
-  height: 38px;
+  width: 4.5rem;
+  height: 2.375rem;
 
   font-weight: 600;
-  font-size: 28px;
-  line-height: 38px;
+  font-size: 1.75rem;
+  line-height: 2.375rem;
 
   color: #000000;
 `;
@@ -303,25 +303,25 @@ const Price = styled('p')`
 const PriceWon = styled('p')`
   display: inline-block;
 
-  width: 27px;
-  height: 25px;
+  width: 1.688rem;
+  height: 1.563rem;
 
   font-weight: 600;
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 1.125rem;
+  line-height: 1.563rem;
 
   color: #000000;
 `;
 
 const Hr = styled(Divider)`
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const BottomContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 3.125rem;
 `;
 
 const TabBox = styled(Container)``;
@@ -341,23 +341,23 @@ const CategoryChip = styled(Chip)`
 `;
 
 const Heading = styled('p')`
-  width: 274px;
-  height: 8px;
+  width: 17.125rem;
+  height: 0.5rem;
 
   font-weight: 600;
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 1.125rem;
+  line-height: 1.563rem;
 
   color: #000000;
 `;
 
 const SubText = styled('p')`
-  width: 296px;
-  height: 8px;
+  width: 18.5rem;
+  height: 0.5rem;
 
   font-weight: 700;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 0.75rem;
+  line-height: 1rem;
 
   color: #999999;
 `;

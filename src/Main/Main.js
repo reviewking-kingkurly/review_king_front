@@ -13,7 +13,6 @@ import OrderHistory from './components/OrderHistory';
 import BestReviewItem from './components/BestReviewItem';
 import CategoryReviewItem from './components/CategoryReviewItem';
 import axios from 'axios';
-import { fabClasses, useScrollTrigger } from '@mui/material';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -132,34 +131,43 @@ const Main = () => {
                 <ChartImg src="/Chart.png" />
               </ChartBox>
               <TopReviewItems>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  selected
-                  textColor="secondary"
-                  indicatorColor="secondary"
-                  variant="fullWidth"
-                  aria-label="basic tabs example"
-                >
+                <Box sx={{ width: '100%' }}>
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    selected
+                    textColor="secondary"
+                    indicatorColor="secondary"
+                    variant="fullWidth"
+                  >
+                    {reviewRanking?.map((item, index) => {
+                      return (
+                        <Tab
+                          label={item.sub_category_name}
+                          {...a11yProps(index)}
+                        />
+                      );
+                    })}
+                  </Tabs>
+                </Box>
+                <Box>
                   {reviewRanking?.map((item, index) => {
                     return (
-                      <Tab
-                        label={item.sub_category_name}
-                        {...a11yProps(index)}
-                      />
+                      <TabPanelContent value={value} index={index}>
+                        <PanelFlexBox>
+                          {item?.product.map(review => {
+                            return (
+                              <CategoryReviewItem
+                                product={review.product_name}
+                                img={review.product_thumbnail}
+                              />
+                            );
+                          })}
+                        </PanelFlexBox>
+                      </TabPanelContent>
                     );
                   })}
-                </Tabs>
-                {reviewRanking?.map((item, index) => {
-                  return (
-                    <TabPanel value={value} index={index}>
-                      <CategoryReviewItem
-                        product={item.product.product_name}
-                        img={item.product.product_thumbnail}
-                      />
-                    </TabPanel>
-                  );
-                })}
+                </Box>
               </TopReviewItems>
             </TopReviewWrapper>
           </ReviewRankingWrapper>
@@ -271,16 +279,18 @@ const CategoryChip = styled(Chip)`
 
 const TopReviewWrapper = styled(Container)`
   display: flex;
+  align-items: center;
   width: 65.625rem;
   height: 18.75rem;
-  margin-top: 1.75rem;
   margin-left: -0.625rem;
 `;
 
 const TopReviewItems = styled(Container)`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 49.5rem;
-  height: 15.625rem;
+  height: 20rem;
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -294,3 +304,19 @@ const ChartBox = styled(Box)`
 `;
 
 const ChartImg = styled('img')``;
+
+const TabPanelContent = styled(TabPanel)`
+  display: flex;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const PanelFlexBox = styled(Box)`
+  display: flex;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;

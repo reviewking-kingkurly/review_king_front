@@ -83,14 +83,14 @@ const LogIn = () => {
 export default LogIn;
 
 const LoginBox = styled(Box)`
-  margin-top: 64px;
+  margin-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const LogoWrapper = styled(Box)`
-  margin-top: 8px;
+  margin-top: 0.5rem;
 `;
 
 const Logo = styled('img')`
@@ -99,15 +99,15 @@ const Logo = styled('img')`
 `;
 
 const LoginForm = styled(Box)`
-  margin-top: 8px;
+  margin-top: 0.5rem;
 `;
 
 const IdInput = styled(TextField)``;
 const PwInput = styled(TextField)``;
 
 const LoginButton = styled(Button)`
-  margin-top: 32px;
-  margin-bottom: 16px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 
   color: #5e0080;
   background-color: #ffffff;
