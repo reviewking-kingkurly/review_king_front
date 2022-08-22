@@ -1,49 +1,101 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 const ReviewWrite = () => {
+  const [mockOrdered, setMockOrdered] = useState('');
+  const {
+    product_id,
+    product_name,
+    product_price,
+    product_quantity,
+    product_thumbnail,
+    delivery_date,
+    order_status,
+    product_purchased_with,
+  } = mockOrdered;
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/data/reviewWrite.json`, {
+      // headers: {
+      //   Authorization: localStorage.getItem('token'),
+      // },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setMockOrdered(data.results);
+      });
+  }, []);
+
+  // form - data;
+  // 필수 값 : product_id, content, files
+  // 그 이외 필수값 X : product_id_purchased_with
+  // var formdata = new FormData();
+  // formdata.append('product_id', '1');
+  // formdata.append('content', '너무 맛있어요 ');
+  // formdata.append(
+  //   'files',
+  //   fileInput.files[0],
+  //   'KakaoTalk_Photo_2022-05-21-18-15-48-5.jpg'
+  // );
+  // formdata.append(
+  //   'files',
+  //   fileInput.files[0],
+  //   'KakaoTalk_Photo_2022-05-21-18-15-48-3.jpeg'
+  // );
+  // formdata.append('product_id_purchased_with', '2');
+  // formdata.append('product_id_purchased_with', '3');
+
+  // var requestOptions = {
+  //   method: 'POST',
+  //   headers: myHeaders,
+  //   body: formdata,
+  //   redirect: 'follow',
+  // };
+
   return (
     <BackGround>
       <Wrapper>
-        <ContentWrapper>
-          <OrderTitle>주문번호</OrderTitle>
-          <Product>
-            <ImgWrapper>img</ImgWrapper>
-            <DescriptionWrapper>
-              <ProductName>상품명</ProductName>
-              <Description>상품설명</Description>
-              <Amount>구매수량</Amount>
-              <DeliveryDate>
-                배송날짜 <span>배송현황</span>
-              </DeliveryDate>
-            </DescriptionWrapper>
-          </Product>
-          <InputBox
-            placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,&#13;&#10;일반식품의 효능이나 효과 등에 오해의 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다.&#13;&#10;반품/환불 문의는 1:1 문의로 가능합니다."
-          />
-          <Photo>
-            <button>+</button>
-            <div>
-              구매한 상품이 아니거나 캡쳐 사진을 첨부할 경우, 통보없이 삭제 및
-              적립 혜택이 취소됩니다.
-            </div>
-          </Photo>
-          <Related>
-            <h3>
-              같이 구매했던 상품이에요. 다른 고객님들께 연관 상품으로
-              추천할까요?
-            </h3>
-            <ProductBox>
-              <ImgBox>img</ImgBox>
-              <ContentBox>
-                <ContentName>name</ContentName>
-                <ContentPrice>price</ContentPrice>
-              </ContentBox>
-            </ProductBox>
-          </Related>
-          <SubmitButton>등록하기</SubmitButton>
-        </ContentWrapper>
+        {mockOrdered && (
+          <ContentWrapper>
+            <OrderTitle>주문번호</OrderTitle>
+            <Product>
+              <ImgWrapper>img</ImgWrapper>
+              <DescriptionWrapper>
+                <ProductName>{product_name}</ProductName>
+                <Description>상품설명</Description>
+                <Amount>{product_quantity} 개</Amount>
+                <DeliveryDate>
+                  {delivery_date} <span>{order_status}</span>
+                </DeliveryDate>
+              </DescriptionWrapper>
+            </Product>
+            <InputBox
+              placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,&#13;&#10;일반식품의 효능이나 효과 등에 오해의 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다.&#13;&#10;반품/환불 문의는 1:1 문의로 가능합니다."
+            />
+            <Photo>
+              <button>+</button>
+              <div>
+                구매한 상품이 아니거나 캡쳐 사진을 첨부할 경우, 통보없이 삭제 및
+                적립 혜택이 취소됩니다.
+              </div>
+            </Photo>
+            <Related>
+              <h3>
+                같이 구매했던 상품이에요. 다른 고객님들께 연관 상품으로
+                추천할까요?
+              </h3>
+              <ProductBox>
+                <ImgBox>img</ImgBox>
+                <ContentBox>
+                  <ContentName>name</ContentName>
+                  <ContentPrice>price</ContentPrice>
+                </ContentBox>
+              </ProductBox>
+            </Related>
+            <SubmitButton>등록하기</SubmitButton>
+          </ContentWrapper>
+        )}
       </Wrapper>
     </BackGround>
   );
@@ -60,6 +112,7 @@ const SubmitButton = styled.button`
   color: #ccc;
   background-color: white;
   cursor: pointer;
+  transition: ease-in-out 150ms;
 
   &:hover {
     color: white;
@@ -143,6 +196,7 @@ const InputBox = styled.textarea`
   margin: 3.25rem 0;
   padding: 1rem;
   border: 1px solid #ddd;
+  resize: none;
 
   :focus {
     outline: none;

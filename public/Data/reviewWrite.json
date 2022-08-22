@@ -1,0 +1,31 @@
+{
+  "results": {
+    "product_id": 2,
+    "product_name": "감자",
+    "product_price": "3800",
+    "product_quantity": 1,
+    "product_thumbnail": "https://img-cf.kurly.com/shop/data/goods/1637154387515l0.jpg",
+    "delivery_date": ["2022-08-22"],
+    "order_status": "배송완료",
+    "product_purchased_with": [
+      {
+        "product_id": 1,
+        "product_name": "호박고구마",
+        "product_thumbnail": "https://img-cf.kurly.com/shop/data/goods/1637154415267l0.jpg",
+        "product_price": "4780"
+      },
+      {
+        "product_id": 2,
+        "product_name": "감자",
+        "product_thumbnail": "https://img-cf.kurly.com/shop/data/goods/1637154387515l0.jpg",
+        "product_price": "3800"
+      },
+      {
+        "product_id": 3,
+        "product_name": "친환경 세척 당근",
+        "product_thumbnail": "https://img-cf.kurly.com/shop/data/goods/1608190610850l0.jpg",
+        "product_price": "3990"
+      }
+    ]
+  }
+}
