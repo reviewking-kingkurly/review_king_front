@@ -3,28 +3,20 @@ import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 
-const GeneralReviewComponent = () => {
+const GeneralReviewComponent = ({ name, liked, content, img, date }) => {
   return (
-    <GeneralReviewBox
-      sx={{
-        display: 'flex',
-        alignItems: 'end',
-      }}
-    >
+    <GeneralReviewBox>
       <Box>
         <Rank label="라벤더" />
-        <GeneralReview>고객님의 리뷰</GeneralReview>
-        <Liked>도움 13</Liked>
-        <Date>2022-08-19</Date>
-        <ReviewBoxContent>
-          후기를 반신반의하며 첫 구매를 했었는데 벌써 3통째 구매해서 먹고
-          있어요!! 건강한 식단 관리를 위해 그릭 요거트 세계에 입문했는데
-          그릭요거트 사실 맛있진 않더라고요ㅜㅜ 그래서 같이 먹을만한 토핑류를
-          열심히 찾던 중 이 제품을 보게 됐는데 오 대박 성공적!!
-        </ReviewBoxContent>
+        <GeneralReview>
+          <UserName>{name}</UserName>고객님의 리뷰
+        </GeneralReview>
+        <Liked>도움 {liked}</Liked>
+        <Date>{date}</Date>
+        <ReviewBoxContent>{content}</ReviewBoxContent>
       </Box>
       <Box>
-        <ReviewImg src="/Mock_Rectangle.png" />
+        <ReviewImg src={img} />
       </Box>
     </GeneralReviewBox>
   );
@@ -32,7 +24,10 @@ const GeneralReviewComponent = () => {
 
 export default GeneralReviewComponent;
 
-const GeneralReviewBox = styled(Box)``;
+const GeneralReviewBox = styled(Box)`
+  display: flex;
+  align-items: end;
+`;
 
 const Liked = styled('p')`
   display: inline-block;
@@ -95,7 +90,7 @@ const Rank = styled(Chip)`
 
 const GeneralReview = styled('p')`
   display: inline-block;
-  width: 100px;
+  width: 125px;
   height: 16px;
 
   font-weight: 600;
@@ -103,4 +98,10 @@ const GeneralReview = styled('p')`
   line-height: 16px;
 
   color: #000000;
+`;
+
+const UserName = styled('p')`
+  display: inline;
+
+  text-align: center;
 `;
