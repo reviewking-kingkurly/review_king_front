@@ -2,17 +2,23 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-const CategoryReviewItem = () => {
+const CategoryReviewItem = ({ product, price, img }) => {
   return (
-    <Box sx={{ height: '13.75rem', width: '9rem', mr: '1.8rem' }}>
-      <RectangleImg src="/Mock_Rectangle.png" />
-      <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
-      <Price sx={{ mt: '-0.625rem' }}>3,450원</Price>
-    </Box>
+    <ReviewItemBox>
+      <RectangleImg src={img} />
+      <ProductName>{product}</ProductName>
+      <Price>price</Price>
+    </ReviewItemBox>
   );
 };
 
 export default CategoryReviewItem;
+
+const ReviewItemBox = styled(Box)`
+  height: 13.75rem;
+  width: 9rem;
+  margin-right: 1.25rem;
+`;
 
 const RectangleImg = styled('img')`
   width: 9rem;
@@ -23,6 +29,7 @@ const RectangleImg = styled('img')`
 const Price = styled('p')`
   width: 3.313rem;
   height: 1.188rem;
+  margin-top: -0.625rem;
 
   font-weight: 600;
   font-size: 0.875rem;

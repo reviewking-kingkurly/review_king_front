@@ -3,17 +3,22 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-const WriteReviewItem = () => {
+const WriteReviewItem = ({ name, thumbnail }) => {
   return (
-    <Box sx={{ width: '9rem', mr: '1.125rem' }}>
-      <RectangleImg src="/Mock_Rectangle.png" />
-      <ProductName>[홍루이젠] 대만 샌드위치 3종</ProductName>
+    <ReviewItemBox>
+      <RectangleImg src={thumbnail} />
+      <ProductName>{name}</ProductName>
       <ReviewButton variant="outlined">리뷰 작성하기</ReviewButton>
-    </Box>
+    </ReviewItemBox>
   );
 };
 
 export default WriteReviewItem;
+
+const ReviewItemBox = styled(Box)`
+  width: 9rem;
+  margin-right: 1.4rem;
+`;
 
 const RectangleImg = styled('img')`
   width: 9rem;
