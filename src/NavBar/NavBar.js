@@ -27,20 +27,20 @@ const Nav = styled('div')`
   align-items: center;
 
   max-width: 'xl';
-  height: 110px;
+  height: 6.875rem;
 
   background: #ffffff;
   border: 1px solid #eeeeee;
 `;
 
 const Logo = styled('img')`
-  width: 181px;
-  height: 82px;
+  width: 11.313rem;
+  height: 5.125rem;
 `;
 
 const SearchBar = styled('input')`
-  width: 350px;
-  height: 38px;
+  width: 21.875rem;
+  height: 2.375rem;
 
   background: #f7f7f7;
   border: 1px solid #eeeeee;
@@ -57,37 +57,37 @@ const UserInfo = styled(Box)`
 const UserName = styled(Box)`
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 0.625;
 `;
 
 const Rank = styled(Chip)`
-  width: 55px;
-  height: 20px;
-  margin-right: 5px;
+  width: 3.4rem;
+  height: 1.25rem;
+  margin-right: 0.3rem;
 
   font-weight: 600;
-  font-size: 10px;
+  font-size: 0.625rem;
 
   color: #ffffff;
   background-color: #a06ab4;
 `;
 
 const NickName = styled('p')`
-  width: 58px;
-  height: 20px;
+  width: 3.625rem;
+  height: 1.25rem;
 
   font-weight: 600;
-  font-size: 12px;
+  font-size: 0.75rem;
 
   color: #000000;
 `;
 
 const Logout = styled('button')`
-  width: 60px;
-  height: 20px;
+  width: 3.75rem;
+  height: 1.25rem;
 
   font-weight: 600;
-  font-size: 12px;
+  font-size: 0.75rem;
 
   color: #cccccc;
   border: none;
