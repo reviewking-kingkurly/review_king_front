@@ -1,16 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { IP } from '../../config';
 
 const ReviewPost = () => {
+  const navigate = useNavigate();
   const [mockReview, setMockReview] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
-
+  const [liked, setLiked] = useState(false);
+  const [prevLike, setPrevLike] = useState('');
+  const [gradeInfo, setGradeInfo] = useState({
+    name: '',
+    color: '',
+  });
   const {
     user_name,
-    user_grade,
     content,
     created_at,
     review_image,
@@ -30,15 +36,42 @@ const ReviewPost = () => {
       .then(res => res.json())
       .then(data => {
         setMockReview(data.results);
+        getUserGrade(data.results.user_grade);
+        getUserLike(data.results.review_like_choice);
+        setPrevLike(data.results.review_like);
         data.results.review_image === '' ||
           setSelectedImg(data.results.review_image[0]);
       });
   }, []);
 
+  const MEMBER_GRADE = [
+    { id: 1, name: '일반', color: '#b1a9c6' },
+    { id: 2, name: '프렌즈', color: '#d2beff' },
+    { id: 3, name: '화이트', color: '#ba99e1' },
+    { id: 4, name: '라벤더', color: '#a775d6' },
+    { id: 5, name: '퍼플', color: '#875eb3' },
+    { id: 6, name: '더퍼플', color: '#5f0080' },
+  ];
+
+  const getUserLike = review_like_choice => {
+    review_like_choice === '' || setLiked(false);
+  };
+
+  const getUserGrade = user_grade => {
+    setGradeInfo({
+      ...gradeInfo,
+      name: MEMBER_GRADE[user_grade - 1].name,
+      color: MEMBER_GRADE[user_grade - 1].color,
+    });
+  };
+
+  const selected = e => {
+    setSelectedImg(e.target.src);
+  };
+
   const replaceName = name => {
     const index = 1;
     const replaceCharacter = '*';
-
     return (
       name.substr(0, index) +
       replaceCharacter +
@@ -46,13 +79,14 @@ const ReviewPost = () => {
     );
   };
 
-  const selected = e => {
-    setSelectedImg(e.target.src);
+  const goToPage = id => {
+    navigate(`/product/${id}`);
   };
 
   return (
     <BackGround>
       <ModalWrapper>
+        <CloseButton>x</CloseButton>
         {mockReview && (
           <ContentWrapper>
             <TopSide>
@@ -74,20 +108,41 @@ const ReviewPost = () => {
               )}
               <ReviewWrapper>
                 <ProductWrapper>
-                  <h3>{product_name}</h3>
-                  <div>{product_description}</div>
+                  <h3
+                    onClick={() => {
+                      goToPage(product_id);
+                    }}
+                  >
+                    {product_name}
+                  </h3>
+                  <div
+                    onClick={() => {
+                      goToPage(product_id);
+                    }}
+                  >
+                    {product_description}
+                  </div>
                 </ProductWrapper>
                 <UserInfoWrapper>
-                  <UserInfo>
-                    <UserGrade>라벤더</UserGrade>
-                    <UserNickname>{replaceName(user_name)}</UserNickname>
-                  </UserInfo>
+                  {gradeInfo.name && (
+                    <UserInfo>
+                      <UserGrade>{gradeInfo.name}</UserGrade>
+                      <UserNickname>{replaceName(user_name)}</UserNickname>
+                    </UserInfo>
+                  )}
                   <PostDate>{created_at.substr(0, 10)}</PostDate>
                 </UserInfoWrapper>
+
                 <ReviewContent>{content}</ReviewContent>
-                <LikeButton>
-                  도움이 돼요
-                  <span>{review_like === 0 || `${review_like}`}</span>
+                <LikeButton
+                  onClick={() => {
+                    setLiked(prev => !prev);
+                    liked === true && setPrevLike(prevLike - 1);
+                    liked === false && setPrevLike(prevLike + 1);
+                  }}
+                >
+                  {liked === true && <span>✓</span>} 도움이 돼요
+                  <span>{review_like === 0 || `${prevLike}`}</span>
                 </LikeButton>
               </ReviewWrapper>
             </TopSide>
@@ -101,7 +156,13 @@ const ReviewPost = () => {
                     product_price,
                     product_thumbnail,
                   }) => (
-                    <ProductCard key={product_id}>
+                    <ProductCard
+                      key={product_id}
+                      value={product_id}
+                      onClick={() => {
+                        goToPage(product_id);
+                      }}
+                    >
                       <ProductCardImage
                         alt="product image"
                         src={product_thumbnail}
@@ -126,6 +187,12 @@ const ReviewPost = () => {
 };
 
 export default ReviewPost;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 2.375rem;
+  right: 2.375rem;
+`;
 
 const TopSide = styled.div`
   ${({ theme }) => theme.flex.flexBox('', '', 'flex-start')}
@@ -220,7 +287,7 @@ const ReviewContent = styled.div`
 `;
 
 const LikeButton = styled.button`
-  width: 7.5rem;
+  min-width: 7.5rem;
   position: absolute;
   right: 0;
   bottom: 0;
