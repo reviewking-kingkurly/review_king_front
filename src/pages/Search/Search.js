@@ -4,33 +4,20 @@ import styled from '@emotion/styled';
 import { IP } from '../../config';
 
 const Search = () => {
-  const [mockProduct, setMockProduct] = useState();
-  const [mockReview, setMockReview] = useState();
+  const [productList, setProductList] = useState();
+  const [reviewList, setReviewList] = useState();
   const [value, setValue] = useState();
 
-  // 상품 검색
   useEffect(() => {
-    fetch(`http://localhost:3000/data/product.json`, {
+    fetch(`${IP}products/search`, {
       // headers: {
       //   Authorization: localStorage.getItem('token'),
       // },
     })
       .then(res => res.json())
       .then(data => {
-        setMockProduct(data);
-      });
-  }, []);
-
-  // 리뷰 검색
-  useEffect(() => {
-    fetch(`http://localhost:3000/data/search.json`, {
-      // headers: {
-      //   Authorization: localStorage.getItem('token'),
-      // },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setMockReview(data);
+        setProductList(data.product);
+        setReviewList(data.review);
       });
   }, []);
 
@@ -46,12 +33,12 @@ const Search = () => {
             }}
             placeholder="검색어를 입력해주세요"
           />
-          {mockProduct && value && (
+          {productList && value && (
             <ProductBox>
               <h3>상품 검색</h3>
               <ProductCardWrapper>
-                {mockProduct &&
-                  mockProduct
+                {productList &&
+                  productList
                     .filter(
                       list =>
                         list.product_name
@@ -75,22 +62,26 @@ const Search = () => {
             </ProductBox>
           )}
 
-          {mockReview && value && (
+          {reviewList && value && (
             <ReviewBox>
               <h3>리뷰 검색</h3>
               <ReviewContentWrapper>
-                {mockReview &&
-                  mockReview
+                {reviewList &&
+                  reviewList
                     .filter(
                       list =>
-                        list.review
+                        list.review_content
                           .toLowerCase()
                           .includes(value.toLowerCase()) && list
                     )
                     .map(list => (
-                      <ReviewContent key={list.id}>
-                        <ReviewProduct>{list.product}</ReviewProduct>
-                        <ReviewResult>{list.review}</ReviewResult>
+                      <ReviewContent class="container" key={list.product_id}>
+                        <ReviewProduct class="item">
+                          {list.product_name}
+                        </ReviewProduct>
+                        <ReviewResult class="item">
+                          {list.review_content}
+                        </ReviewResult>
                       </ReviewContent>
                     ))}
               </ReviewContentWrapper>
@@ -115,6 +106,7 @@ const ReviewBox = styled.div`
 
   h3 {
     font-size: 24px;
+    font-weight: 600;
     color: #333;
     margin: 0 0 2rem 0;
   }
@@ -127,6 +119,7 @@ const ProductBox = styled.div`
 
   h3 {
     font-size: 24px;
+    font-weight: 600;
     color: #333;
     margin: 0 0 2rem 0;
   }
@@ -145,6 +138,7 @@ const ReviewContentWrapper = styled.div`
   ${({ theme }) => theme.flex.flexBox('column', '', 'flex-start')}
   overflow-y: scroll;
   height: 8.75rem;
+  cursor: pointer;
 
   ::-webkit-scrollbar {
     display: none;
@@ -153,6 +147,8 @@ const ReviewContentWrapper = styled.div`
 
 const ReviewContent = styled.div`
   ${({ theme }) => theme.flex.flexBox('', '', 'flex-start')}
+  display: grid;
+  grid-template-columns: 1fr 4fr;
   font-size: 15px;
   margin-bottom: 0.5rem;
 `;
@@ -173,6 +169,7 @@ const ReviewResult = styled.div`
 `;
 
 const ProductCard = styled.div`
+  width: 9rem;
   margin-right: 1.125rem;
 
   &:last-child {
@@ -197,7 +194,14 @@ const ProductName = styled.div`
   font-size: 13px;
   font-weight: bold;
   color: #333;
+  line-height: 1.2;
   margin-bottom: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
 `;
 
 const ProductPrice = styled.div`

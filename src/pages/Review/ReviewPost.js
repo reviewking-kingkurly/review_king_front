@@ -28,10 +28,12 @@ const ReviewPost = () => {
   } = mockReview;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/data/review.json`, {
-      // headers: {
-      //   Authorization: localStorage.getItem('token'),
-      // },
+    const review_id = 57;
+    fetch(`${IP}reviews/${review_id}`, {
+      headers: {
+        Authorization:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NjEyNDgxNDN9.GppFa9l02yO-MTiHKVOyBA6_hWPD3wT93wGM9H4U0lE',
+      },
     })
       .then(res => res.json())
       .then(data => {
@@ -45,7 +47,7 @@ const ReviewPost = () => {
   }, []);
 
   const MEMBER_GRADE = [
-    { id: 1, name: '일반', color: '#b1a9c6' },
+    { id: 1, name: '일반', color: '#d' },
     { id: 2, name: '프렌즈', color: '#d2beff' },
     { id: 3, name: '화이트', color: '#ba99e1' },
     { id: 4, name: '라벤더', color: '#a775d6' },
