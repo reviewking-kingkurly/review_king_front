@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { IP } from '../../config';
 import { Navigate } from 'react-router-dom';
 
@@ -10,6 +11,8 @@ const ReviewWrite = () => {
   const [inputImages, setInputImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
+  // product_id_purchased_with
+
   const {
     order_number,
     product_id,
@@ -45,11 +48,12 @@ const ReviewWrite = () => {
 
   const submitReview = () => {
     const formData = new FormData();
-
     formData.append('product_id', product_id);
     formData.append('content', input);
     inputImages.map((file, index) => formData.append(`file${index}`, file));
-    // formData.append('product_id_purchased_with', '');
+    relatedItems.map((file, index) =>
+      formData.append(`product_id_purchased_with${index}`, file)
+    );
 
     fetch(`${IP}reviews`, {
       method: 'POST',
@@ -96,8 +100,20 @@ const ReviewWrite = () => {
     setInputImages(inputImages.filter((_, index) => index !== id));
   };
 
-  const handleRelatedItems = id => {
-    let relatedItemList = [...relatedItems];
+  const addRelatedItems = id => {
+    let itemList = [...relatedItems];
+    itemList.push(id);
+    setRelatedItems(itemList);
+  };
+
+  const removeRelatedItems = id => {
+    let newArr = [];
+    newArr = relatedItems.filter(el => el !== id);
+    setRelatedItems(newArr);
+  };
+
+  const checkRelatedItems = id => {
+    relatedItems.includes(id) ? removeRelatedItems(id) : addRelatedItems(id);
   };
 
   return (
@@ -136,27 +152,29 @@ const ReviewWrite = () => {
                     <PreviewCard key={id}>
                       <PreviewImage src={image} alt={`${image}-${id}`} />
                       <ImageDeleteButton onClick={() => deleteImage(id)}>
-                        삭제
+                        x
                       </ImageDeleteButton>
                     </PreviewCard>
                   ))}
-                  <label htmlFor="input-file" onChange={handleImages}>
-                    <input
-                      multiple
-                      type="file"
-                      id="image"
-                      accept="image/jpg,image/png,image/jpeg"
-                      encType="multipart/form-data"
-                      // style={{ display: 'none' }}
-                    />
-                  </label>
+                  {inputImages.length === 10 || (
+                    <label htmlFor="image" onChange={handleImages}>
+                      <input
+                        multiple
+                        type="file"
+                        id="image"
+                        accept="image/jpg,image/png,image/jpeg"
+                        encType="multipart/form-data"
+                        style={{ display: 'none' }}
+                      />
+                      사진추가
+                    </label>
+                  )}
                 </PreviewWrapper>
-
-                <div>
+                <PhotoGuideText>
                   구매한 상품이 아니거나 캡쳐 사진을 첨부할 경우, 통보없이 삭제
                   및 적립 혜택이 취소됩니다.
-                </div>
-                <PhotoLength>장 / 최대 10 장</PhotoLength>
+                </PhotoGuideText>
+                <PhotoLength>{inputImages.length} 장 / 최대 10 장</PhotoLength>
               </Photo>
             </PhotoWrapper>
             <Related>
@@ -174,7 +192,10 @@ const ReviewWrite = () => {
                   }) => (
                     <ProductBox
                       key={product_id}
-                      onClick={() => handleRelatedItems(product_id)}
+                      onClick={() => checkRelatedItems(product_id)}
+                      isChecked={
+                        relatedItems.includes(product_id) ? true : false
+                      }
                     >
                       <ImgBox alt="product image" src={product_thumbnail} />
                       <ContentBox>
@@ -189,7 +210,12 @@ const ReviewWrite = () => {
                 )}
               </ProductWrapper>
             </Related>
-            <SubmitButton onClick={submitReview}>등록하기</SubmitButton>
+            <SubmitButton
+              disabled={input.length > 10 ? false : true}
+              onClick={submitReview}
+            >
+              등록하기
+            </SubmitButton>
           </ContentWrapper>
         )}
       </Wrapper>
@@ -202,18 +228,27 @@ export default ReviewWrite;
 const SubmitButton = styled.button`
   ${({ theme }) => theme.flex.flexBox}
   width: 100%;
-  border: 1px solid #ccc;
   height: 3.25rem;
   margin-top: 4.5rem;
-  color: #ccc;
-  background-color: white;
+  border: none;
+  color: white;
+  background-color: #5e0080;
   cursor: pointer;
   transition: ease-in-out 150ms;
 
+  &:disabled {
+    border: 1px solid #ccc;
+    color: #ccc;
+    background-color: white;
+
+    &:hover {
+      opacity: 1;
+      cursor: not-allowed;
+    }
+  }
+
   &:hover {
-    color: white;
-    background-color: #5e0080;
-    border: none;
+    opacity: 0.5;
   }
 `;
 
@@ -253,6 +288,15 @@ const ProductBox = styled.div`
   &:last-child {
     margin-right: 0;
   }
+
+  ${props =>
+    props.isChecked === true &&
+    css`
+      background-color: rgb(94, 0, 128, 0.05);
+      box-shadow: 0 0 6px rgb(94, 0, 128, 0.05);
+      border: 1px solid rgb(94, 0, 128);
+      opacity: 0.6;
+    `}
 `;
 
 const ImgBox = styled.img`
@@ -317,10 +361,13 @@ const Photo = styled.div`
   }
 
   div {
-    margin-top: 0.75rem;
     font-size: 12px;
     color: #ccc;
   }
+`;
+
+const PhotoGuideText = styled.div`
+  margin-top: 0.75rem;
 `;
 
 const PhotoLength = styled.span`
@@ -333,26 +380,65 @@ const PhotoLength = styled.span`
 
 const PreviewWrapper = styled.section`
   ${({ theme }) => theme.flex.flexBox('', '', 'flex-start')}
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  label {
+    ${({ theme }) => theme.flex.flexBox}
+    border: 1px solid purple;
+    cursor: pointer;
+    width: 6.25rem;
+    height: 6.25rem;
+    aspect-ratio: 1/1;
+    border-radius: 0.25rem;
+    transition: ease-in-out 150ms;
+    opacity: 0.4;
+    color: purple;
+    background-color: ${({ theme }) => theme.colors.BackGround};
+    font-size: 14px;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 `;
 
 const PreviewCard = styled.div`
-  width: 5.125rem;
+  position: relative;
+  width: 6.25rem;
+  height: 6.25rem;
   margin-right: 0.5rem;
 `;
 
 const PreviewImage = styled.img`
   border: 1px solid #eee;
   border-radius: 0.25rem;
-  width: 5.125rem;
-  height: 5.125rem;
+  width: 6.25rem;
+  height: 6.25rem;
   overflow: hidden;
   object-fit: cover;
 `;
 
-const ImageDeleteButton = styled.button`
-  button {
-    width: 2rem;
-    height: 2rem;
+const ImageDeleteButton = styled.span`
+  ${({ theme }) => theme.flex.flexBox}
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  background-color: #eee;
+  opacity: 0.8;
+  color: #bbb;
+  cursor: pointer;
+  transition: ease-in-out 150ms;
+
+  &:hover {
+    opacity: 0.5;
   }
 `;
 

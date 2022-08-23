@@ -47,7 +47,7 @@ const ReviewPost = () => {
   }, []);
 
   const MEMBER_GRADE = [
-    { id: 1, name: '일반', color: '#b1a9c6' },
+    { id: 1, name: '일반', color: '#d' },
     { id: 2, name: '프렌즈', color: '#d2beff' },
     { id: 3, name: '화이트', color: '#ba99e1' },
     { id: 4, name: '라벤더', color: '#a775d6' },
