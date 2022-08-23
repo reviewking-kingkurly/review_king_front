@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -41,36 +42,38 @@ function a11yProps(index) {
 }
 
 const ProductDetail = () => {
+  const { id } = useParams();
+
   const [value, setValue] = React.useState(0);
 
   const [productDetail, setProductDetail] = useState([]);
   useEffect(() => {
-    axios.get('http://10.58.4.207:8000/products/2').then(data => {
+    axios.get(`http://10.58.4.207:8000/products/${id}`).then(data => {
       setProductDetail(data.data.results);
     });
-  }, []);
+  }, [id]);
 
   const [boughtTogether, setBoughtTogether] = useState([]);
   useEffect(() => {
     axios
-      .get(' http://10.58.4.207:8000/products/241/purchased_prod')
+      .get(`http://10.58.4.207:8000/products/${id}/purchased_prod`)
       .then(data => {
         setBoughtTogether(data.data.results);
       });
-  }, []);
+  }, [id]);
 
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/list/241').then(data => {
-      console.log('general review', data.data.results);
+    axios.get(`http://10.58.4.207:8000/reviews/list/${id}`).then(data => {
       setReviews(data.data.results);
     });
-  }, []);
+  }, [id]);
 
   const productName = productDetail?.product_name;
   const productDesc = productDetail?.product_description;
   const productPrice = productDetail?.product_price;
   const productImg = productDetail?.product_thumbnail;
+  const productId = productDetail?.product_id;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -86,17 +89,16 @@ const ProductDetail = () => {
   const [category, setCategory] = useState([]);
   useEffect(() => {
     axios
-      .get('http://10.58.4.207:8000/products/241/related_cate')
+      .get(`http://10.58.4.207:8000/products/${id}/related_cate`)
       .then(data => {
         console.log('data for category', data.data.results);
         setCategory(data.data.results);
       });
-  }, []);
+  }, [id]);
 
   const [chipName, setChipName] = useState('');
   const getCategoryName = e => {
     const categoryName = e.target.innerText;
-    console.log(e.target.innerText);
     setChipName(categoryName);
   };
 
@@ -159,6 +161,7 @@ const ProductDetail = () => {
                 }}
               />
               <BoughtTogetherComponent
+                productId={productId}
                 productName={productName}
                 boughtTogether={boughtTogether}
               />
@@ -208,7 +211,7 @@ const ProductNameBox = styled(Box)``;
 const PriceBox = styled(Box)``;
 
 const ProductName = styled('p')`
-  width: 18.25rem;
+  width: 25rem;
   height: 2.063rem;
 
   font-weight: 600;
@@ -219,7 +222,7 @@ const ProductName = styled('p')`
 `;
 
 const Description = styled('p')`
-  width: 15rem;
+  width: 25rem;
   height: 1.188rem;
 
   font-weight: 600;

@@ -1,10 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-const CategoryReviewItem = ({ product, img }) => {
+const CategoryReviewItem = ({ product, img, productId }) => {
+  const navigate = useNavigate();
+  const goToDetail = () => {
+    navigate(`/products/${productId}`);
+  };
+
   return (
-    <ReviewItemBox>
+    <ReviewItemBox onClick={goToDetail}>
       <RectangleImg src={img} />
       <ProductName>{product}</ProductName>
       <Price>price</Price>
@@ -18,6 +24,9 @@ const ReviewItemBox = styled(Box)`
   height: 13.75rem;
   width: 9rem;
   margin-right: 1.25rem;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const RectangleImg = styled('img')`

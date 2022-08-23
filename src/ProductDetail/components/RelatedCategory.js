@@ -48,7 +48,7 @@ const RelatedCategory = ({
     setValue(newValue);
   };
 
-  console.log('related', category);
+  console.log('related', category[0]);
 
   return (
     <CategoryContainer>

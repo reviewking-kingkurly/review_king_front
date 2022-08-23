@@ -4,7 +4,11 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import BoughtTogetherItem from './BoughtTogetherItem';
 
-const BoughtTogetherComponent = ({ productName, boughtTogether }) => {
+const BoughtTogetherComponent = ({
+  productName,
+  boughtTogether,
+  productId,
+}) => {
   return (
     <BoughtTogether>
       <Heading>이 상품을 구매 한 고객님들의 선택 💡</Heading>
@@ -16,6 +20,7 @@ const BoughtTogetherComponent = ({ productName, boughtTogether }) => {
               <BoughtTogetherItem
                 key={item.review_id}
                 product={item.product_name}
+                productId={item.product_id}
                 thumbnail={item.product_thumbnail}
                 price={item.product_price}
               />

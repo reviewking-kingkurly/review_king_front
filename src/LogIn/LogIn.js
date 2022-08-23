@@ -29,7 +29,6 @@ const LogIn = () => {
         'http://10.58.4.207:8000/users/login',
         userData
       );
-      console.log(res);
 
       if (res.statusText === 'OK') {
         alert(res.data.message);
@@ -43,7 +42,7 @@ const LogIn = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <LoginContainer component="main" maxWidth="xs">
         <CssBaseline />
         <LoginBox>
           <LogoWrapper>
@@ -75,18 +74,30 @@ const LogIn = () => {
             </LoginButton>
           </LoginForm>
         </LoginBox>
-      </Container>
+      </LoginContainer>
     </ThemeProvider>
   );
 };
 
 export default LogIn;
 
+const LoginContainer = styled(Container)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LoginBox = styled(Box)`
-  margin-top: 4rem;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 7rem;
+  padding: 3rem 3rem;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 10px 5px 5px #5e0080;
 `;
 
 const LogoWrapper = styled(Box)`
