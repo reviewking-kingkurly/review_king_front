@@ -61,7 +61,6 @@ const Search = () => {
               </ProductCardWrapper>
             </ProductBox>
           )}
-
           {reviewList && value && (
             <ReviewBox>
               <h3>리뷰 검색</h3>
@@ -103,7 +102,6 @@ const CloseButton = styled.button`
 
 const ReviewBox = styled.div`
   overflow: scroll;
-
   h3 {
     font-size: 24px;
     font-weight: 600;
@@ -116,7 +114,6 @@ const ProductBox = styled.div`
   padding-bottom: 3.25rem;
   margin-bottom: 3.25rem;
   border-bottom: 1px solid #ccc;
-
   h3 {
     font-size: 24px;
     font-weight: 600;
@@ -128,7 +125,6 @@ const ProductBox = styled.div`
 const ProductCardWrapper = styled.div`
   ${({ theme }) => theme.flex.flexBox('', '', 'flex-start')}
   overflow-x: scroll;
-
   ::-webkit-scrollbar {
     display: none;
   }
@@ -171,7 +167,6 @@ const ReviewResult = styled.div`
 const ProductCard = styled.div`
   width: 9rem;
   margin-right: 1.125rem;
-
   &:last-child {
     margin-right: 0;
   }
@@ -217,11 +212,9 @@ const SearchBox = styled.input`
   font-size: 24px;
   padding: 1rem 0;
   margin-bottom: 3.25rem;
-
   :focus {
     outline: none;
   }
-
   ::placeholder {
     color: #eee;
   }

@@ -233,17 +233,14 @@ const ImageItem = styled.img`
   cursor: pointer;
   transition: ease-in-out 150ms;
   object-fit: cover;
-
   ${props =>
     props.isSelected === true &&
     css`
       opacity: 0.5;
     `}
-
   &:hover {
     opacity: 0.5;
   }
-
   &:last-child {
     margin-bottom: 0;
   }
@@ -255,13 +252,11 @@ const ProductWrapper = styled.div`
   width: 31rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid #ccc;
-
   div {
     font-size: 14px;
     color: #ccc;
     line-height: 1.2;
     cursor: pointer;
-
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -282,7 +277,6 @@ const ReviewContent = styled.div`
   font-size: 13px;
   color: #333;
   overflow-y: scroll;
-
   ::-webkit-scrollbar {
     display: none;
   }
@@ -301,11 +295,9 @@ const LikeButton = styled.button`
   background-color: white;
   cursor: pointer;
   transition: ease-in-out 150ms;
-
   &:hover {
     opacity: 0.5;
   }
-
   span {
     margin-left: 0.25rem;
   }
@@ -351,11 +343,9 @@ const ProductCard = styled.div`
   cursor: pointer;
   transition: ease-in-out 150ms;
   margin-right: 0.75rem;
-
   &:hover {
     opacity: 0.5;
   }
-
   &:last-child {
     margin-right: 0;
   }
@@ -380,7 +370,6 @@ const ProductName = styled.div`
   font-size: 12px;
   font-weight: 600;
   color: #333;
-
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -400,14 +389,12 @@ const ProductPrice = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
-
   h3 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 0.75rem;
     line-height: 1.2;
     cursor: pointer;
-
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -415,7 +402,6 @@ const ContentWrapper = styled.div`
     -webkit-box-orient: vertical;
     word-wrap: break-word;
   }
-
   h4 {
     font-size: 18px;
     font-weight: bold;
