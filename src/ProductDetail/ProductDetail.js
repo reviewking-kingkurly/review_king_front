@@ -62,7 +62,7 @@ const ProductDetail = () => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     axios.get('http://10.58.4.207:8000/reviews/list/241').then(data => {
-      console.log('general review', data);
+      console.log('general review', data.data.results);
       setReviews(data.data.results);
     });
   }, []);
@@ -135,7 +135,7 @@ const ProductDetail = () => {
               aria-label="basic tabs example"
             >
               <Tab label="추천 상품" {...a11yProps(0)} selected />
-              <Tab label="후기 (175)" {...a11yProps(1)} />
+              <Tab label="후기" {...a11yProps(1)} />
             </Tabs>
           </Box>
           <RecommendationPanel value={value} index={0}>
@@ -171,7 +171,7 @@ const ProductDetail = () => {
             </Container>
           </RecommendationPanel>
           <ReviewPanel value={value} index={1}>
-            <ReviewPanelComponent />
+            <ReviewPanelComponent reviews={reviews} />
           </ReviewPanel>
         </TabBox>
       </BottomContainer>
