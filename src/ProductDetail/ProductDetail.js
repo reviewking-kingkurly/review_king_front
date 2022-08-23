@@ -46,17 +46,25 @@ const ProductDetail = () => {
   const [value, setValue] = React.useState(0);
   const [productDetail, setProductDetail] = useState([]);
 
+  // useEffect(() => {
+  //   axios.get('http://localhost:3000/data/productDetail.json').then(data => {
+  //     setProductDetail(data.data.result);
+  //     console.log(data.data.result);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    axios.get('http://localhost:3000/data/productDetail.json').then(data => {
-      setProductDetail(data.data.result);
-      console.log(data.data.result);
+    axios.get('http://10.58.4.207:8000/products/2').then(data => {
+      setProductDetail(data.data.results);
+      console.log(data.data.results);
+      console.log(productDetail);
     });
   }, []);
 
-  const productName = productDetail.product_name;
-  const productDesc = productDetail.product_description;
-  const productPrice = productDetail.product_price;
-  const productImg = productDetail.product_thumbnail;
+  const productName = productDetail?.product_name;
+  const productDesc = productDetail?.product_description;
+  const productPrice = productDetail?.product_price;
+  const productImg = productDetail?.product_thumbnail;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -277,7 +285,7 @@ const ProductName = styled('p')`
 `;
 
 const Description = styled('p')`
-  width: 10.875rem;
+  width: 15rem;
   height: 1.188rem;
 
   font-weight: 600;
