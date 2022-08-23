@@ -15,6 +15,7 @@ import BestReviewItem from './components/BestReviewItem';
 import CategoryReviewItem from './components/CategoryReviewItem';
 import axios from 'axios';
 import MockBarChart from '../ProductDetail/components/MockBarChart';
+import { IP } from '../../config';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,7 +60,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get('http://10.58.4.207:8000/reviews/write_list', {
+      .get(`${IP}reviews/write_list`, {
         headers: {
           Authorization: localStorage.getItem('access_token'),
         },
@@ -71,16 +72,15 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/best').then(data => {
+    axios.get(`${IP}reviews/best`).then(data => {
       setBestReview(data.data.results);
     });
   }, []);
 
   useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
+    axios.get(`${IP}reviews/ranking`).then(data => {
       setReviewRanking(data.data.results);
       setCategory(data.data.results);
-      console.log(data.data.results[0]);
     });
   }, []);
 
@@ -155,7 +155,6 @@ const Main = () => {
             <TopReviewWrapper>
               <ChartBox>
                 <MockBarChart />
-                {/* <ChartImg src="/Chart.png" /> */}
               </ChartBox>
               <TopReviewItems>
                 <Box sx={{ width: '100%' }}>
@@ -170,6 +169,7 @@ const Main = () => {
                     {reviewRanking?.map((item, index) => {
                       return (
                         <Tab
+                          key={index}
                           label={item.sub_category_name}
                           {...a11yProps(index)}
                         />
@@ -180,11 +180,12 @@ const Main = () => {
                 <Box>
                   {reviewRanking?.map((item, index) => {
                     return (
-                      <TabPanelContent value={value} index={index}>
+                      <TabPanelContent key={index} value={value} index={index}>
                         <PanelFlexBox>
                           {item?.product.map(review => {
                             return (
                               <CategoryReviewItem
+                                key={index}
                                 product={review.product_name}
                                 productId={review.product_id}
                                 img={review.product_thumbnail}
@@ -220,10 +221,9 @@ const MainDivider = styled(Divider)`
 `;
 
 const Heading = styled('p')`
+  font-size: 24px;
   font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 0.938rem;
-  margin-bottom: 0.063rem;
+  margin: 0 0 0.75rem 0;
 `;
 
 const SubText = styled('p')`
@@ -287,7 +287,6 @@ const ReviewRankingWrapper = styled('div')`
 `;
 
 const ChipContainer = styled(Container)`
-  /* display: flex; */
   display: none;
   align-items: center;
   justify-content: space-between;
@@ -298,10 +297,8 @@ const ChipContainer = styled(Container)`
 const CategoryChip = styled(Chip)`
   font-weight: 600;
   font-size: 0.625rem;
-
   width: 4.688rem;
   height: 1.688rem;
-
   color: #5e0080;
 `;
 
@@ -330,8 +327,6 @@ const ChartBox = styled(Box)`
   height: 13.75rem;
   margin-right: 1.9rem;
 `;
-
-const ChartImg = styled('img')``;
 
 const TabPanelContent = styled(TabPanel)`
   display: flex;

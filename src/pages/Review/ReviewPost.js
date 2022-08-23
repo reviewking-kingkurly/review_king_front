@@ -391,7 +391,7 @@ const ContentWrapper = styled.div`
   height: 100%;
   h3 {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 0.75rem;
     line-height: 1.2;
     cursor: pointer;
