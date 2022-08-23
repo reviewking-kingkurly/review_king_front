@@ -110,7 +110,6 @@ const Main = () => {
                 />
               );
             })}
-            {/* <OrderHistory /> */}
           </ReviewWrapper>
         </WriteReview>
         <MainDivider />

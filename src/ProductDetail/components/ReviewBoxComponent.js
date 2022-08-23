@@ -7,17 +7,15 @@ import { Divider } from '@mui/material';
 import BestReviewComponent from './BestReviewComponent';
 import GeneralReviewComponent from './GeneralReviewComponent';
 
-const ReviewBoxComponent = () => {
-  const [reviews, setReviews] = useState([]);
+const ReviewBoxComponent = ({ reviews }) => {
+  // const [reviews, setReviews] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:3000/data/productDetailReview.json')
-      .then(data => {
-        console.log(data.data.results);
-        setReviews(data.data.results);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://10.58.4.207:8000/reviews/list').then(data => {
+  //     console.log('general review', data.data.results);
+  //     setReviews(data.data.results);
+  //   });
+  // }, []);
 
   return (
     <ReviewContainer maxWidth="lg">
