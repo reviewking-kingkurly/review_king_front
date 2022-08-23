@@ -21,9 +21,6 @@ const Search = () => {
       });
   }, []);
 
-  console.log('productList', productList);
-  console.log('reviewList', reviewList);
-
   return (
     <BackGround>
       <ModalWrapper>
@@ -78,9 +75,13 @@ const Search = () => {
                           .includes(value.toLowerCase()) && list
                     )
                     .map(list => (
-                      <ReviewContent key={list.product_id}>
-                        <ReviewProduct>{list.product_name}</ReviewProduct>
-                        <ReviewResult>{list.review_content}</ReviewResult>
+                      <ReviewContent class="container" key={list.product_id}>
+                        <ReviewProduct class="item">
+                          {list.product_name}
+                        </ReviewProduct>
+                        <ReviewResult class="item">
+                          {list.review_content}
+                        </ReviewResult>
                       </ReviewContent>
                     ))}
               </ReviewContentWrapper>
@@ -105,6 +106,7 @@ const ReviewBox = styled.div`
 
   h3 {
     font-size: 24px;
+    font-weight: 600;
     color: #333;
     margin: 0 0 2rem 0;
   }
@@ -117,6 +119,7 @@ const ProductBox = styled.div`
 
   h3 {
     font-size: 24px;
+    font-weight: 600;
     color: #333;
     margin: 0 0 2rem 0;
   }
@@ -144,6 +147,8 @@ const ReviewContentWrapper = styled.div`
 
 const ReviewContent = styled.div`
   ${({ theme }) => theme.flex.flexBox('', '', 'flex-start')}
+  display: grid;
+  grid-template-columns: 1fr 4fr;
   font-size: 15px;
   margin-bottom: 0.5rem;
 `;
@@ -164,6 +169,7 @@ const ReviewResult = styled.div`
 `;
 
 const ProductCard = styled.div`
+  width: 9rem;
   margin-right: 1.125rem;
 
   &:last-child {
@@ -188,7 +194,14 @@ const ProductName = styled.div`
   font-size: 13px;
   font-weight: bold;
   color: #333;
+  line-height: 1.2;
   margin-bottom: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
 `;
 
 const ProductPrice = styled.div`
