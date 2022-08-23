@@ -16,8 +16,6 @@ const Search = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-
         setProductList(data.product);
         setReviewList(data.review);
       });
@@ -137,6 +135,7 @@ const ReviewContentWrapper = styled.div`
   overflow-y: scroll;
   height: 8.75rem;
   cursor: pointer;
+
   ::-webkit-scrollbar {
     display: none;
   }
