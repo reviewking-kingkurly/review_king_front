@@ -1,0 +1,33 @@
+{
+  "results": {
+    "order_number": 94357462,
+    "product_id": 241,
+    "product_name": "[존쿡 델리미트] 카나디언 베이컨",
+    "product_price": "4480",
+    "product_description": "돼지 등심으로 만들어 기름기 없이 담백한 카나디언 베이컨",
+    "product_quantity": 1,
+    "product_thumbnail": "https://img-cf.kurly.com/cdn-cgi/image/width=676,format=auto/shop/data/goods/1623311791794l0.jpg",
+    "delivery_date": ["2022-08-22"],
+    "order_status": "배송완료",
+    "product_purchased_with": [
+      {
+        "product_id": 241,
+        "product_name": "[존쿡 델리미트] 카나디언 베이컨",
+        "product_thumbnail": "https://img-cf.kurly.com/cdn-cgi/image/width=676,format=auto/shop/data/goods/1623311791794l0.jpg",
+        "product_price": "4480"
+      },
+      {
+        "product_id": 37,
+        "product_name": "뚝딱! 대파 500g (냉동)",
+        "product_thumbnail": "https://img-cf.kurly.com/cdn-cgi/image/width=676,format=auto/shop/data/goods/1648710200738l0.jpg",
+        "product_price": "4990"
+      },
+      {
+        "product_id": 178,
+        "product_name": "동물복지 유정란 20구",
+        "product_thumbnail": "https://img-cf.kurly.com/cdn-cgi/image/width=676,format=auto/shop/data/goods/1653036825212l0.jpeg",
+        "product_price": "8595"
+      }
+    ]
+  }
+}
