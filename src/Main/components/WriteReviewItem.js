@@ -33,6 +33,10 @@ const ProductName = styled('p')`
   font-size: 0.75rem;
   line-height: 1rem;
 
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   color: #333333;
 `;
 

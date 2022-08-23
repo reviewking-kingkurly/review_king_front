@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import { Divider } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import BestReviewItem from '../Main/components/BestReviewItem';
-import CategoryReviewItem from '../Main/components/CategoryReviewItem';
 import axios from 'axios';
 import ReviewBoxComponent from './components/ReviewBoxComponent';
 import ReviewPanelComponent from './components/ReviewPanelComponent';
+import RelatedCategory from './components/RelatedCategory';
+import BoughtTogetherComponent from './components/BoughtTogetherComponent';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,26 +42,62 @@ function a11yProps(index) {
 
 const ProductDetail = () => {
   const [value, setValue] = React.useState(0);
-  const [productDetail, setProductDetail] = useState([]);
 
+  const [productDetail, setProductDetail] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:3000/data/productDetail.json').then(data => {
-      setProductDetail(data.data.result);
-      console.log(data.data.result);
+    axios.get('http://10.58.4.207:8000/products/2').then(data => {
+      setProductDetail(data.data.results);
     });
   }, []);
 
-  const productName = productDetail.product_name;
-  const productDesc = productDetail.product_description;
-  const productPrice = productDetail.product_price;
-  const productImg = productDetail.product_thumbnail;
+  const [boughtTogether, setBoughtTogether] = useState([]);
+  useEffect(() => {
+    axios
+      .get(' http://10.58.4.207:8000/products/241/purchased_prod')
+      .then(data => {
+        setBoughtTogether(data.data.results);
+      });
+  }, []);
+
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    axios.get('http://10.58.4.207:8000/reviews/list/241').then(data => {
+      console.log('general review', data.data.results);
+      setReviews(data.data.results);
+    });
+  }, []);
+
+  const productName = productDetail?.product_name;
+  const productDesc = productDetail?.product_description;
+  const productPrice = productDetail?.product_price;
+  const productImg = productDetail?.product_thumbnail;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleClickChip = () => {
-    console.log('clicked');
+  const [relatedList, setRelatedList] = useState([]);
+  useEffect(() => {
+    axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
+      setRelatedList(data.data.results);
+    });
+  }, []);
+
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://10.58.4.207:8000/products/241/related_cate')
+      .then(data => {
+        console.log('data for category', data.data.results);
+        setCategory(data.data.results);
+      });
+  }, []);
+
+  const [chipName, setChipName] = useState('');
+  const getCategoryName = e => {
+    const categoryName = e.target.innerText;
+    console.log(e.target.innerText);
+    setChipName(categoryName);
   };
 
   return (
@@ -85,7 +119,7 @@ const ProductDetail = () => {
             </PriceBox>
           </DescriptionContainer>
           <Hr />
-          <ReviewBoxComponent />
+          <ReviewBoxComponent reviews={reviews} />
         </RightContainer>
       </DescriptionWrapper>
       <BottomContainer>
@@ -101,7 +135,7 @@ const ProductDetail = () => {
               aria-label="basic tabs example"
             >
               <Tab label="추천 상품" {...a11yProps(0)} selected />
-              <Tab label="후기 (175)" {...a11yProps(1)} />
+              <Tab label="후기" {...a11yProps(1)} />
             </Tabs>
           </Box>
           <RecommendationPanel value={value} index={0}>
@@ -113,113 +147,21 @@ const ProductDetail = () => {
                 flexDirection: 'column',
               }}
             >
-              <Container>
-                <Box>
-                  <Heading>연관 카테고리도 살펴보고 가세요! ✨</Heading>
-                  <SubText>
-                    [네네린도] 평판 스크래쳐 2종의 최근 한 달간 구매 내역 기준
-                  </SubText>
-                </Box>
-                <Box>
-                  <ReviewWrapper
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      width: '65.625rem',
-                      height: '27.188rem',
-                      overflow: 'auto',
-                    }}
-                  >
-                    <Container
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        maxWidth: 'xl',
-                        height: '1.875rem',
-                      }}
-                    >
-                      <Stack direction="row" spacing={1}>
-                        <CategoryChip
-                          label="고구마"
-                          variant="outlined"
-                          disabled
-                          onClick={handleClickChip}
-                        />
-                        <CategoryChip
-                          label="생선류"
-                          variant="outlined"
-                          onClick={handleClickChip}
-                        />
-                        <CategoryChip
-                          label="돼지고기"
-                          variant="outlined"
-                          disabled
-                          onClick={handleClickChip}
-                        />
-                        <CategoryChip
-                          label="계랸류"
-                          variant="outlined"
-                          disabled
-                          onClick={handleClickChip}
-                        />
-                      </Stack>
-                    </Container>
-                    <Container
-                      sx={{
-                        display: 'flex',
-                        width: '65.625rem',
-                        height: '18.75rem',
-                        overflow: 'auto',
-                        marginTop: '1.75rem',
-                        marginLeft: '-0.625rem',
-                      }}
-                    >
-                      <Box>
-                        <ChartImg src="/Doughnut.png" />
-                      </Box>
-                      <Container
-                        sx={{
-                          width: '49.5rem',
-                          height: '15.625rem',
-                          display: 'flex',
-                          overflow: 'auto',
-                        }}
-                      >
-                        <CategoryReviewItem />
-                        <CategoryReviewItem />
-                        <CategoryReviewItem />
-                        <CategoryReviewItem />
-                      </Container>
-                    </Container>
-                  </ReviewWrapper>
-                </Box>
-              </Container>
+              <RelatedCategory
+                productName={productName}
+                category={category}
+                getCategoryName={getCategoryName}
+                relatedList={relatedList}
+              />
               <Divider
                 sx={{
-                  marginBottom: 3,
+                  marginBottom: '2rem',
                 }}
               />
-              <Container>
-                <Box>
-                  <Heading>이 상품을 구매 한 고객님들의 선택 💡</Heading>
-                  <SubText>
-                    [네네린도] 평판 스크래쳐 2종의 최근 한 달간 구매 내역 기준
-                  </SubText>
-                </Box>
-                <ReviewWrapper>
-                  <BestReviewItemContainer
-                    sx={{
-                      maxWidth: 'xl',
-                    }}
-                  >
-                    <BestReviewItem />
-                    <BestReviewItem />
-                    <BestReviewItem />
-                    <BestReviewItem />
-                  </BestReviewItemContainer>
-                </ReviewWrapper>
-              </Container>
+              <BoughtTogetherComponent
+                productName={productName}
+                boughtTogether={boughtTogether}
+              />
               <Divider
                 sx={{
                   marginTop: '3.25rem',
@@ -229,7 +171,7 @@ const ProductDetail = () => {
             </Container>
           </RecommendationPanel>
           <ReviewPanel value={value} index={1}>
-            <ReviewPanelComponent />
+            <ReviewPanelComponent reviews={reviews} />
           </ReviewPanel>
         </TabBox>
       </BottomContainer>
@@ -277,7 +219,7 @@ const ProductName = styled('p')`
 `;
 
 const Description = styled('p')`
-  width: 10.875rem;
+  width: 15rem;
   height: 1.188rem;
 
   font-weight: 600;
@@ -329,56 +271,3 @@ const TabBox = styled(Container)``;
 const RecommendationPanel = styled(TabPanel)``;
 
 const ReviewPanel = styled(TabPanel)``;
-
-const CategoryChip = styled(Chip)`
-  font-weight: 600;
-  font-size: 0.625rem;
-
-  width: 4.688rem;
-  height: 1.688rem;
-
-  color: #5e0080;
-`;
-
-const Heading = styled('p')`
-  width: 17.125rem;
-  height: 0.5rem;
-
-  font-weight: 600;
-  font-size: 1.125rem;
-  line-height: 1.563rem;
-
-  color: #000000;
-`;
-
-const SubText = styled('p')`
-  width: 18.5rem;
-  height: 0.5rem;
-
-  font-weight: 700;
-  font-size: 0.75rem;
-  line-height: 1rem;
-
-  color: #999999;
-`;
-
-const ReviewWrapper = styled('div')`
-  margin-top: 2rem;
-`;
-
-const BestReviewItemContainer = styled(Container)`
-  display: flex;
-  align-items: center;
-  height: 11.25rem;
-  margin-left: -0.625rem;
-  overflow: auto;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const ChartImg = styled('img')`
-  width: 13.75rem;
-  height: 13.75rem;
-  margin-right: 2.375rem;
-`;

@@ -15,9 +15,7 @@ const GeneralReviewComponent = ({ name, liked, content, img, date }) => {
         <Date>{date}</Date>
         <ReviewBoxContent>{content}</ReviewBoxContent>
       </Box>
-      <Box>
-        <ReviewImg src={img} />
-      </Box>
+      <Box>{img && <ReviewImg src={img} />}</Box>
     </GeneralReviewBox>
   );
 };
