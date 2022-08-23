@@ -11,8 +11,6 @@ const ReviewWrite = () => {
   const [inputImages, setInputImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
-  // product_id_purchased_with
-
   const {
     order_number,
     product_id,
@@ -46,14 +44,18 @@ const ReviewWrite = () => {
   // 필수 값 : product_id, content
   // 그 이외 필수값 X : files, product_id_purchased_with
 
+  console.log(inputImages[0]);
+
   const submitReview = () => {
     const formData = new FormData();
     formData.append('product_id', product_id);
     formData.append('content', input);
-    inputImages.map((file, index) => formData.append(`file${index}`, file));
-    relatedItems.map((file, index) =>
-      formData.append(`product_id_purchased_with${index}`, file)
-    );
+    for (let i = 0; i < inputImages.length; i++) {
+      formData.append('files', inputImages[i], inputImages[i].name);
+    }
+    for (let i = 0; i < relatedItems.length; i++) {
+      formData.append('product_id_purchased_with', relatedItems[i]);
+    }
 
     fetch(`${IP}reviews`, {
       method: 'POST',
