@@ -4,35 +4,25 @@ import styled from '@emotion/styled';
 import { IP } from '../../config';
 
 const Search = () => {
-  const [mockProduct, setMockProduct] = useState();
-  const [mockReview, setMockReview] = useState();
+  const [productList, setProductList] = useState();
+  const [reviewList, setReviewList] = useState();
   const [value, setValue] = useState();
 
-  // 상품 검색
   useEffect(() => {
-    fetch(`http://localhost:3000/data/product.json`, {
+    fetch(`${IP}products/search`, {
       // headers: {
       //   Authorization: localStorage.getItem('token'),
       // },
     })
       .then(res => res.json())
       .then(data => {
-        setMockProduct(data);
+        setProductList(data.product);
+        setReviewList(data.review);
       });
   }, []);
 
-  // 리뷰 검색
-  useEffect(() => {
-    fetch(`http://localhost:3000/data/search.json`, {
-      // headers: {
-      //   Authorization: localStorage.getItem('token'),
-      // },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setMockReview(data);
-      });
-  }, []);
+  console.log('productList', productList);
+  console.log('reviewList', reviewList);
 
   return (
     <BackGround>
@@ -46,12 +36,12 @@ const Search = () => {
             }}
             placeholder="검색어를 입력해주세요"
           />
-          {mockProduct && value && (
+          {productList && value && (
             <ProductBox>
               <h3>상품 검색</h3>
               <ProductCardWrapper>
-                {mockProduct &&
-                  mockProduct
+                {productList &&
+                  productList
                     .filter(
                       list =>
                         list.product_name
@@ -75,22 +65,22 @@ const Search = () => {
             </ProductBox>
           )}
 
-          {mockReview && value && (
+          {reviewList && value && (
             <ReviewBox>
               <h3>리뷰 검색</h3>
               <ReviewContentWrapper>
-                {mockReview &&
-                  mockReview
+                {reviewList &&
+                  reviewList
                     .filter(
                       list =>
-                        list.review
+                        list.review_content
                           .toLowerCase()
                           .includes(value.toLowerCase()) && list
                     )
                     .map(list => (
-                      <ReviewContent key={list.id}>
-                        <ReviewProduct>{list.product}</ReviewProduct>
-                        <ReviewResult>{list.review}</ReviewResult>
+                      <ReviewContent key={list.product_id}>
+                        <ReviewProduct>{list.product_name}</ReviewProduct>
+                        <ReviewResult>{list.review_content}</ReviewResult>
                       </ReviewContent>
                     ))}
               </ReviewContentWrapper>
@@ -145,6 +135,7 @@ const ReviewContentWrapper = styled.div`
   ${({ theme }) => theme.flex.flexBox('column', '', 'flex-start')}
   overflow-y: scroll;
   height: 8.75rem;
+  cursor: pointer;
 
   ::-webkit-scrollbar {
     display: none;

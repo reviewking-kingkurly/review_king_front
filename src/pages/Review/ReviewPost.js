@@ -28,10 +28,12 @@ const ReviewPost = () => {
   } = mockReview;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/data/review.json`, {
-      // headers: {
-      //   Authorization: localStorage.getItem('token'),
-      // },
+    const review_id = 57;
+    fetch(`${IP}reviews/${review_id}`, {
+      headers: {
+        Authorization:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NjEyNDgxNDN9.GppFa9l02yO-MTiHKVOyBA6_hWPD3wT93wGM9H4U0lE',
+      },
     })
       .then(res => res.json())
       .then(data => {
