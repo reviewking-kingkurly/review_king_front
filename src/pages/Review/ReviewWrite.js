@@ -24,7 +24,7 @@ const ReviewWrite = () => {
   } = mockOrdered;
 
   useEffect(() => {
-    const ordered_item_id = 1;
+    const ordered_item_id = 26;
     fetch(`${IP}reviews/write/${ordered_item_id}`, {
       headers: {
         Authorization:
@@ -39,8 +39,6 @@ const ReviewWrite = () => {
         // }
       });
   }, []);
-
-  console.log(IP);
 
   const submitReview = () => {
     const formData = new FormData();
