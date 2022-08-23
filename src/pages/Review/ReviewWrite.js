@@ -40,12 +40,6 @@ const ReviewWrite = () => {
       });
   }, []);
 
-  // form - data;
-  // 필수 값 : product_id, content
-  // 그 이외 필수값 X : files, product_id_purchased_with
-
-  console.log(inputImages[0]);
-
   const submitReview = () => {
     const formData = new FormData();
     formData.append('product_id', product_id);
