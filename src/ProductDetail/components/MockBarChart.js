@@ -6,25 +6,13 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 export const options = {
-  responsive: true,
   plugins: {
-    legend: {
-      position: 'top',
-    },
     title: {
       display: true,
       text: 'Chart.js Bar Chart',
@@ -32,14 +20,14 @@ export const options = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
+const labels = ['January', 'February', 'March', 'April'];
 
 export const data = {
   labels,
   datasets: [
     {
       label: 'Dataset 1',
-      data: [12, 19, 3, 5, 2, 3],
+      data: [1, 2, 3, 4],
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
   ],
