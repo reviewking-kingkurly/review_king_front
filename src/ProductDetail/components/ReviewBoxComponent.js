@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -8,15 +7,6 @@ import BestReviewComponent from './BestReviewComponent';
 import GeneralReviewComponent from './GeneralReviewComponent';
 
 const ReviewBoxComponent = ({ reviews }) => {
-  // const [reviews, setReviews] = useState([]);
-
-  // useEffect(() => {
-  //   axios.get('http://10.58.4.207:8000/reviews/list').then(data => {
-  //     console.log('general review', data.data.results);
-  //     setReviews(data.data.results);
-  //   });
-  // }, []);
-
   return (
     <ReviewContainer maxWidth="lg">
       <Box>

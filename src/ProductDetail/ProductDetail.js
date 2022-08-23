@@ -7,11 +7,11 @@ import { Divider } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import BestReviewItem from '../Main/components/BestReviewItem';
 import axios from 'axios';
 import ReviewBoxComponent from './components/ReviewBoxComponent';
 import ReviewPanelComponent from './components/ReviewPanelComponent';
 import RelatedCategory from './components/RelatedCategory';
+import BoughtTogetherComponent from './components/BoughtTogetherComponent';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,31 +42,24 @@ function a11yProps(index) {
 
 const ProductDetail = () => {
   const [value, setValue] = React.useState(0);
+
   const [productDetail, setProductDetail] = useState([]);
-  const [reviews, setReviews] = useState([]);
-
-  const [bestReview, setBestReview] = useState([]);
-  useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/best').then(data => {
-      setBestReview(data.data.results);
-    });
-  }, []);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3000/data/productDetail.json').then(data => {
-  //     setProductDetail(data.data.result);
-  //     console.log(data.data.result);
-  //   });
-  // }, []);
-
   useEffect(() => {
     axios.get('http://10.58.4.207:8000/products/2').then(data => {
       setProductDetail(data.data.results);
-      console.log(data.data.results);
-      console.log(productDetail);
     });
   }, []);
 
+  const [boughtTogether, setBoughtTogether] = useState([]);
+  useEffect(() => {
+    axios
+      .get(' http://10.58.4.207:8000/products/241/purchased_prod')
+      .then(data => {
+        setBoughtTogether(data.data.results);
+      });
+  }, []);
+
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
     axios.get('http://10.58.4.207:8000/reviews/list/241').then(data => {
       console.log('general review', data);
@@ -83,21 +76,28 @@ const ProductDetail = () => {
     setValue(newValue);
   };
 
-  const [reviewRanking, setReviewRanking] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [chipName, setChipName] = useState('');
+  const [relatedList, setRelatedList] = useState([]);
   useEffect(() => {
     axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
-      setReviewRanking(data.data.results);
-      console.log(data.data.results);
-      setCategory(data.data.results);
+      setRelatedList(data.data.results);
     });
   }, []);
 
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://10.58.4.207:8000/products/241/related_cate')
+      .then(data => {
+        console.log('data for category', data.data.results);
+        setCategory(data.data.results);
+      });
+  }, []);
+
+  const [chipName, setChipName] = useState('');
   const getCategoryName = e => {
     const categoryName = e.target.innerText;
+    console.log(e.target.innerText);
     setChipName(categoryName);
-    console.log(categoryName);
   };
 
   return (
@@ -147,120 +147,21 @@ const ProductDetail = () => {
                 flexDirection: 'column',
               }}
             >
-              {/* <ReviewRanking>
-                <Heading>연관 카테고리도 살펴보고 가세요! ✨</Heading>
-                <SubText>{productName}의 최근 한 달간 구매 내역 기준</SubText>
-                <ReviewRankingWrapper>
-                  <ChipContainer>
-                    <Stack direction="row" spacing={1}>
-                      {category?.map((item, index) => {
-                        return (
-                          <CategoryChip
-                            key={index}
-                            label={item.sub_category_name}
-                            variant="outlined"
-                            onClick={getCategoryName}
-                          />
-                        );
-                      })}
-                    </Stack>
-                  </ChipContainer>
-                  <TopReviewWrapper>
-                    <ChartBox>
-                      <ChartImg src="/Doughnut.png" />
-                    </ChartBox>
-                    <TopReviewItems>
-                      <Box sx={{ width: '100%' }}>
-                        <Tabs
-                          value={value}
-                          onChange={handleChange}
-                          selected
-                          textColor="secondary"
-                          indicatorColor="secondary"
-                          variant="fullWidth"
-                        >
-                          {reviewRanking?.map((item, index) => {
-                            return (
-                              <Tab
-                                label={item.sub_category_name}
-                                {...a11yProps(index)}
-                              />
-                            );
-                          })}
-                        </Tabs>
-                      </Box>
-                      <Box>
-                        {reviewRanking?.map((item, index) => {
-                          return (
-                            <TabPanelContent value={value} index={index}>
-                              <PanelFlexBox>
-                                {item?.product.map(review => {
-                                  return (
-                                    <CategoryReviewItem
-                                      product={review.product_name}
-                                      img={review.product_thumbnail}
-                                    />
-                                  );
-                                })}
-                              </PanelFlexBox>
-                            </TabPanelContent>
-                          );
-                        })}
-                      </Box>
-                    </TopReviewItems>
-                  </TopReviewWrapper>
-                </ReviewRankingWrapper>
-              </ReviewRanking> */}
               <RelatedCategory
                 productName={productName}
                 category={category}
                 getCategoryName={getCategoryName}
-                reviewRanking={reviewRanking}
+                relatedList={relatedList}
               />
               <Divider
                 sx={{
-                  marginBottom: 3,
+                  marginBottom: '2rem',
                 }}
               />
-              {/* <Container>
-                <Box>
-                  <Heading>이 상품을 구매 한 고객님들의 선택 💡</Heading>
-                  <SubText>
-                    [네네린도] 평판 스크래쳐 2종의 최근 한 달간 구매 내역 기준
-                  </SubText>
-                </Box>
-                <ReviewWrapper>
-                  <BestReviewItemContainer
-                    sx={{
-                      maxWidth: 'xl',
-                    }}
-                  >
-                    <BestReviewItem />
-                    <BestReviewItem />
-                    <BestReviewItem />
-                    <BestReviewItem />
-                  </BestReviewItemContainer>
-                </ReviewWrapper>
-              </Container> */}
-              <BestReview>
-                <Heading>이 상품을 구매 한 고객님들의 선택 💡</Heading>
-                <SubText>{productName}의 최근 한 달간 구매 내역 기준</SubText>
-                <ReviewWrapper>
-                  <BestReviewItems>
-                    {bestReview.map(item => {
-                      return (
-                        <BestReviewItem
-                          key={item.review_id}
-                          product={item.product_name}
-                          review={item.review_content}
-                          thumbnail={item.product_thumbnail}
-                          price={item.product_price}
-                        />
-                      );
-                    })}
-                  </BestReviewItems>
-                </ReviewWrapper>
-              </BestReview>
+              <BoughtTogetherComponent
+                productName={productName}
+                boughtTogether={boughtTogether}
+              />
               <Divider
                 sx={{
                   marginTop: '3.25rem',
@@ -370,43 +271,3 @@ const TabBox = styled(Container)``;
 const RecommendationPanel = styled(TabPanel)``;
 
 const ReviewPanel = styled(TabPanel)``;
-
-const Heading = styled('p')`
-  width: 17.125rem;
-  height: 0.5rem;
-
-  font-weight: 600;
-  font-size: 1.125rem;
-  line-height: 1.563rem;
-
-  color: #000000;
-`;
-
-const SubText = styled('p')`
-  width: 18.5rem;
-  height: 0.5rem;
-
-  font-weight: 700;
-  font-size: 0.75rem;
-  line-height: 1rem;
-
-  color: #999999;
-`;
-
-const ReviewWrapper = styled('div')`
-  margin-top: 2rem;
-`;
-
-const BestReview = styled(Box)``;
-
-const BestReviewItems = styled(Container)`
-  display: flex;
-  align-items: center;
-  height: 11.25rem;
-  overflow: auto;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  margin-left: -0.625rem;
-  margin-bottom: -1rem;
-`;

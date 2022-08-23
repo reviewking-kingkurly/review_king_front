@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
-import { Divider } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import CategoryReviewItem from '../../Main/components/CategoryReviewItem';
-import axios from 'axios';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,22 +40,25 @@ const RelatedCategory = ({
   productName,
   category,
   getCategoryName,
-  reviewRanking,
+  relatedList,
 }) => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  console.log('related', category);
+
   return (
-    <ReviewRanking>
+    <CategoryContainer>
       <Heading>연관 카테고리도 살펴보고 가세요! ✨</Heading>
       <SubText>{productName}의 최근 한 달간 구매 내역 기준</SubText>
-      <ReviewRankingWrapper>
-        <ChipContainer>
-          <Stack direction="row" spacing={1}>
+      <CategoryWrapper>
+        <ChipsContainer>
+          <CategoryStack direction="row" spacing={1}>
             {category?.map((item, index) => {
               return (
-                <CategoryChip
+                <CategoryTab
                   key={index}
                   label={item.sub_category_name}
                   variant="outlined"
@@ -66,13 +66,13 @@ const RelatedCategory = ({
                 />
               );
             })}
-          </Stack>
-        </ChipContainer>
-        <TopReviewWrapper>
+          </CategoryStack>
+        </ChipsContainer>
+        <ChartWrapper>
           <ChartBox>
             <ChartImg src="/Doughnut.png" />
           </ChartBox>
-          <TopReviewItems>
+          <CategoryItems>
             <Box sx={{ width: '100%' }}>
               <Tabs
                 value={value}
@@ -82,7 +82,7 @@ const RelatedCategory = ({
                 indicatorColor="secondary"
                 variant="fullWidth"
               >
-                {reviewRanking?.map((item, index) => {
+                {relatedList?.map((item, index) => {
                   return (
                     <Tab label={item.sub_category_name} {...a11yProps(index)} />
                   );
@@ -90,7 +90,7 @@ const RelatedCategory = ({
               </Tabs>
             </Box>
             <Box>
-              {reviewRanking?.map((item, index) => {
+              {relatedList?.map((item, index) => {
                 return (
                   <TabPanelContent value={value} index={index}>
                     <PanelFlexBox>
@@ -107,10 +107,10 @@ const RelatedCategory = ({
                 );
               })}
             </Box>
-          </TopReviewItems>
-        </TopReviewWrapper>
-      </ReviewRankingWrapper>
-    </ReviewRanking>
+          </CategoryItems>
+        </ChartWrapper>
+      </CategoryWrapper>
+    </CategoryContainer>
   );
 };
 
@@ -138,9 +138,9 @@ const SubText = styled('p')`
   color: #999999;
 `;
 
-const ReviewRanking = styled(Box)``;
+const CategoryContainer = styled(Box)``;
 
-const ReviewRankingWrapper = styled('div')`
+const CategoryWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   width: 65.625rem;
@@ -152,7 +152,7 @@ const ReviewRankingWrapper = styled('div')`
   margin: 2.2rem 0 1.8rem 0;
 `;
 
-const ChipContainer = styled(Container)`
+const ChipsContainer = styled(Container)`
   /* display: flex; */
   display: none;
   align-items: center;
@@ -161,7 +161,9 @@ const ChipContainer = styled(Container)`
   margin-left: -0.6rem;
 `;
 
-const CategoryChip = styled(Chip)`
+const CategoryStack = styled(Stack)``;
+
+const CategoryTab = styled(Chip)`
   font-weight: 600;
   font-size: 0.625rem;
 
@@ -171,7 +173,7 @@ const CategoryChip = styled(Chip)`
   color: #5e0080;
 `;
 
-const TopReviewWrapper = styled(Container)`
+const ChartWrapper = styled(Container)`
   display: flex;
   align-items: center;
   width: 65.625rem;
@@ -179,7 +181,7 @@ const TopReviewWrapper = styled(Container)`
   margin-left: -0.625rem;
 `;
 
-const TopReviewItems = styled(Container)`
+const CategoryItems = styled(Container)`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -197,8 +199,6 @@ const ChartBox = styled(Box)`
   margin-right: 1.9rem;
 `;
 
-// const ChartImg = styled('img')``;
-
 const TabPanelContent = styled(TabPanel)`
   display: flex;
   overflow: auto;
@@ -213,9 +213,6 @@ const PanelFlexBox = styled(Box)`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
-const MainDivider = styled(Divider)`
-  margin: 3.25rem 0;
 `;
 
 const ChartImg = styled('img')`
