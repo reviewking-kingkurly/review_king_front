@@ -32,7 +32,7 @@ const ReviewPost = () => {
     fetch(`${IP}reviews/${review_id}`, {
       headers: {
         Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NjEyNDgxNDN9.GppFa9l02yO-MTiHKVOyBA6_hWPD3wT93wGM9H4U0lE',
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NjEyOTg2MzR9.mw_tzk8jY3pHUdtTofBi5LMFu_Tfnq5-IR0yh1D6e1o',
       },
     })
       .then(res => res.json())
