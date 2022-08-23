@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -8,6 +8,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import CategoryReviewItem from '../../Main/components/CategoryReviewItem';
+import MockDonutChart from './MockDonutChart';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,7 +71,8 @@ const RelatedCategory = ({
         </ChipsContainer>
         <ChartWrapper>
           <ChartBox>
-            <ChartImg src="/Doughnut.png" />
+            {/* <ChartImg src="/Doughnut.png" /> */}
+            <MockDonutChart />
           </ChartBox>
           <CategoryItems>
             <Box sx={{ width: '100%' }}>

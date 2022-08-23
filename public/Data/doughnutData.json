@@ -1,0 +1,35 @@
+{
+  "total_count": 18,
+  "results": [
+    {
+      "sub_category_id": 4,
+      "sub_category_name": "양파",
+      "sub_category_count": 6,
+      "sub_category_share": 30
+    },
+    {
+      "sub_category_id": 3,
+      "sub_category_name": "당근",
+      "sub_category_count": 4,
+      "sub_category_share": 20
+    },
+    {
+      "sub_category_id": 2,
+      "sub_category_name": "감자",
+      "sub_category_count": 3,
+      "sub_category_share": 15
+    },
+    {
+      "sub_category_id": 6,
+      "sub_category_name": "마늘",
+      "sub_category_count": 3,
+      "sub_category_share": 15
+    },
+    {
+      "sub_category_id": 5,
+      "sub_category_name": "대파",
+      "sub_category_count": 2,
+      "sub_category_share": 10
+    }
+  ]
+}

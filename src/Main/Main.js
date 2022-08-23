@@ -13,6 +13,7 @@ import OrderHistory from './components/OrderHistory';
 import BestReviewItem from './components/BestReviewItem';
 import CategoryReviewItem from './components/CategoryReviewItem';
 import axios from 'axios';
+import MockBarChart from '../ProductDetail/components/MockBarChart';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -153,7 +154,8 @@ const Main = () => {
             </ChipContainer>
             <TopReviewWrapper>
               <ChartBox>
-                <ChartImg src="/Chart.png" />
+                <MockBarChart />
+                {/* <ChartImg src="/Chart.png" /> */}
               </ChartBox>
               <TopReviewItems>
                 <Box sx={{ width: '100%' }}>
