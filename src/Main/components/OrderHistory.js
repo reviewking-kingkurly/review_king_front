@@ -10,32 +10,26 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 import WriteReviewItem from './WriteReviewItem';
 
-const OrderHistory = () => {
-  const [orderedItem, setOrderedItem] = useState([]);
-  const [orderInfo, setOrderInfo] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:3000/data/orderHistory.json').then(data => {
-      setOrderedItem(data.data.results[0].product);
-      setOrderInfo(data.data.results[0]);
-    });
-  }, []);
+const OrderHistory = ({ orderDate, orderNumber, orderedItem }) => {
+  // const [orderedItem, setOrderedItem] = useState([]);
+  // const [orderInfo, setOrderInfo] = useState([]);
 
   // useEffect(() => {
   //   axios
-  //     .get('http://localhost:3000/data/orderHistory.json', {
-  //       Authorization: localStorage.getItem('access_token'),
+  //     .get('http://10.58.4.207:8000/reviews/write_list', {
+  //       headers: {
+  //         Authorization: localStorage.getItem('access_token'),
+  //       },
   //     })
-  //     .then(res => res.json())
   //     .then(data => {
-  //       // console.log({ data: data });
-  //       setOrderedItem(data.results[0].product);
-  //       setOrderInfo(data.results[0]);
+  //       setOrderedItem(data.data.results[0].product);
+  //       setOrderInfo(data.data.results[0]);
+  //       console.log(data.data.results);
   //     });
   // }, []);
 
   const getDate = () => {
-    const dateArr = orderInfo.ordered_at.substr(0, 10).split('-');
+    const dateArr = orderDate.substr(0, 10).split('-');
     const year = dateArr[0];
     const month = dateArr[1];
     const day = dateArr[2];
@@ -43,8 +37,8 @@ const OrderHistory = () => {
   };
 
   // const orderDate = orderInfo.ordered_at;
-  const orderDate = orderInfo.ordered_at && getDate();
-  const orderNumber = orderInfo.order_number;
+  // const orderDateToStr =  getDate();
+  // const orderNumber = orderInfo.order_number;
 
   return (
     <Accordion>
@@ -54,7 +48,7 @@ const OrderHistory = () => {
         id="panel1a-header"
       >
         <AccordionTitle>
-          <OrderDate>{orderDate}</OrderDate>
+          <OrderDate>{getDate()}</OrderDate>
           <OrderNumber>주문번호 {orderNumber}</OrderNumber>
         </AccordionTitle>
       </AccordionSummary>

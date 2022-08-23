@@ -45,6 +45,8 @@ const Main = () => {
   const [bestReview, setBestReview] = useState([]);
   const [reviewRanking, setReviewRanking] = useState([]);
   const [category, setCategory] = useState([]);
+  const [orderedItem, setOrderedItem] = useState([]);
+  const [orderInfo, setOrderInfo] = useState([]);
   const [chipName, setChipName] = useState('');
   const [chartData, setChartData] = useState({});
   const [value, setValue] = React.useState(0);
@@ -54,13 +56,27 @@ const Main = () => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:3000/data/bestReview.json').then(data => {
+    axios
+      .get('http://10.58.4.207:8000/reviews/write_list', {
+        headers: {
+          Authorization: localStorage.getItem('access_token'),
+        },
+      })
+      .then(data => {
+        setOrderedItem(data.data.results.product);
+        setOrderInfo(data.data.results);
+        console.log(data.data.results);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://10.58.4.207:8000/reviews/best').then(data => {
       setBestReview(data.data.results);
     });
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/data/reviewRanking.json').then(data => {
+    axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
       setReviewRanking(data.data.results);
       console.log(data.data.results);
       setCategory(data.data.results);
@@ -84,8 +100,17 @@ const Main = () => {
           <Heading>리뷰 작성하기 &#9997;</Heading>
           <SubText>BEST 후기 작성하고 적립금 받아가세요!</SubText>
           <ReviewWrapper>
-            <OrderHistory />
-            <OrderHistory />
+            {orderInfo?.map((item, index) => {
+              return (
+                <OrderHistory
+                  key={index}
+                  orderDate={item.ordered_at}
+                  orderNumber={item.order_number}
+                  orderedItem={item.product}
+                />
+              );
+            })}
+            {/* <OrderHistory /> */}
           </ReviewWrapper>
         </WriteReview>
         <MainDivider />
@@ -115,9 +140,10 @@ const Main = () => {
           <ReviewRankingWrapper>
             <ChipContainer>
               <Stack direction="row" spacing={1}>
-                {category?.map(item => {
+                {category?.map((item, index) => {
                   return (
                     <CategoryChip
+                      key={index}
                       label={item.sub_category_name}
                       variant="outlined"
                       onClick={getCategoryName}
