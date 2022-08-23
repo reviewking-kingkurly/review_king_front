@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -66,7 +67,6 @@ const Main = () => {
       .then(data => {
         setOrderedItem(data.data.results.product);
         setOrderInfo(data.data.results);
-        console.log(data.data.results);
       });
   }, []);
 
@@ -79,15 +79,14 @@ const Main = () => {
   useEffect(() => {
     axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
       setReviewRanking(data.data.results);
-      console.log(data.data.results);
       setCategory(data.data.results);
+      console.log(data.data.results[0]);
     });
   }, []);
 
   const getCategoryName = e => {
     const categoryName = e.target.innerText;
     setChipName(categoryName);
-    console.log(categoryName);
   };
 
   return (
@@ -124,6 +123,7 @@ const Main = () => {
                   <BestReviewItem
                     key={item.review_id}
                     product={item.product_name}
+                    productId={item.product_id}
                     review={item.review_content}
                     thumbnail={item.product_thumbnail}
                     price={item.product_price}
@@ -186,6 +186,7 @@ const Main = () => {
                             return (
                               <CategoryReviewItem
                                 product={review.product_name}
+                                productId={review.product_id}
                                 img={review.product_thumbnail}
                               />
                             );

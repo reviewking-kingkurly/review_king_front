@@ -1,10 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-const BoughtTogetherItem = ({ product, price, review, thumbnail }) => {
+const BoughtTogetherItem = ({
+  product,
+  price,
+  review,
+  thumbnail,
+  productId,
+}) => {
+  const navigate = useNavigate();
+  const goToDetail = () => {
+    navigate(`/products/${productId}`);
+  };
+
   return (
-    <ItemWrapper>
+    <ItemWrapper onClick={goToDetail}>
       <RectangleImg src={thumbnail} />
       <ItemBox>
         <ItemTitle>{product}</ItemTitle>
@@ -29,6 +41,10 @@ const ItemWrapper = styled(Box)`
   border: 1px solid #eeeeee;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const RectangleImg = styled('img')`
