@@ -45,6 +45,7 @@ const NavBar = () => {
 
   const logOut = () => {
     localStorage.removeItem('access_token');
+    navigate('/login');
   };
 
   const goToMain = () => {
@@ -80,12 +81,10 @@ const Nav = styled('div')`
   display: flex;
   justify-content: space-around;
   align-items: center;
-
   max-width: 'xl';
   height: 6.875rem;
-
   background: #ffffff;
-  border: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
 `;
 
 const Logo = styled('img')`
