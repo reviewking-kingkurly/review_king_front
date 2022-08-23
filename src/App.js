@@ -12,8 +12,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LogIn />} />
         <Route path="/" element={<Main />} />
-        <Route path="/products" element={<ProductDetail />} />{' '}
-        {/*<Route path="/products/:id" element={<ProductDetail />} /> */}
+        <Route path="/products/:id" element={<ProductDetail />} />{' '}
       </Routes>
     </>
   );
