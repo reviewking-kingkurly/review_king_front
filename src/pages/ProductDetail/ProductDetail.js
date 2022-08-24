@@ -9,6 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
+import { IP } from '../../config';
 import ReviewBoxComponent from './components/ReviewBoxComponent';
 import ReviewPanelComponent from './components/ReviewPanelComponent';
 import RelatedCategory from './components/RelatedCategory';
@@ -51,23 +52,21 @@ const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://3.35.3.54:8000/products/${id}`).then(data => {
+    axios.get(`${IP}products/${id}`).then(data => {
       setProductDetail(data.data.results);
     });
   }, [id]);
 
   const [boughtTogether, setBoughtTogether] = useState([]);
   useEffect(() => {
-    axios
-      .get(`http://3.35.3.54:8000/products/${id}/purchased_prod`)
-      .then(data => {
-        setBoughtTogether(data.data.results);
-      });
+    axios.get(`${IP}products/${id}/purchased_prod`).then(data => {
+      setBoughtTogether(data.data.results);
+    });
   }, [id]);
 
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    axios.get(`http://3.35.3.54:8000/reviews/list/${id}`).then(data => {
+    axios.get(`${IP}reviews/list/${id}`).then(data => {
       setReviews(data.data.results);
     });
   }, [id]);
@@ -80,11 +79,9 @@ const ProductDetail = () => {
 
   const [category, setCategory] = useState([]);
   useEffect(() => {
-    axios
-      .get(`http://3.35.3.54:8000/products/${id}/related_cate`)
-      .then(data => {
-        setCategory(data.data.results);
-      });
+    axios.get(`${IP}products/${id}/related_cate`).then(data => {
+      setCategory(data.data.results);
+    });
   }, []);
 
   const [chipName, setChipName] = useState('');
@@ -96,9 +93,7 @@ const ProductDetail = () => {
 
   const getSubCategory = id => {
     axios
-      .get(
-        `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
-      )
+      .get(`${IP}products/${productId}/related_prod?sub_category=${id}`)
       .then(data => {
         console.log('getCategory', data);
         // setItemsList(data.data.results);
