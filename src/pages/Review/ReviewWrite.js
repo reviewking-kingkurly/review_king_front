@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { IP } from '../../config';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 const ReviewWrite = () => {
-  const [mockOrdered, setMockOrdered] = useState('');
+  const params = useParams();
+  const [ordered, setOrdered] = useState('');
   const [input, setInput] = useState('');
   const [inputImages, setInputImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
@@ -21,22 +22,19 @@ const ReviewWrite = () => {
     delivery_date,
     order_status,
     product_purchased_with,
-  } = mockOrdered;
+  } = ordered;
 
   useEffect(() => {
-    const ordered_item_id = 26;
-    fetch(`${IP}reviews/write/${ordered_item_id}`, {
+    fetch(`${IP}reviews/write/${params.id}`, {
       headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NjEyNDgxNDN9.GppFa9l02yO-MTiHKVOyBA6_hWPD3wT93wGM9H4U0lE',
+        Authorization: localStorage.getItem('access_token'),
       },
     })
       .then(res => res.json())
       .then(data => {
-        setMockOrdered(data.results);
-        // if (!(data => data.results === '')) {
-        //   setMockOrdered(data.results);
-        // }
+        if (!(data => data.results === '')) {
+          setOrdered(data.results);
+        }
       });
   }, []);
 
@@ -54,8 +52,7 @@ const ReviewWrite = () => {
     fetch(`${IP}reviews`, {
       method: 'POST',
       headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NjEyNDgxNDN9.GppFa9l02yO-MTiHKVOyBA6_hWPD3wT93wGM9H4U0lE',
+        Authorization: localStorage.getItem('access_token'),
       },
       body: formData,
     })
@@ -63,11 +60,11 @@ const ReviewWrite = () => {
       .then(data => {
         if (data.message === 'THE_REVIEW_ALREADY_EXISTS') {
           alert('이미 작성 된 리뷰가 있습니다.');
-          // Navigate('/');
+          Navigate('/');
         }
         if (data.message === 'SUCCESS') {
           alert('리뷰 작성이 완료되었습니다.');
-          // Navigate('/');
+          Navigate('/');
         }
       });
   };
@@ -115,7 +112,7 @@ const ReviewWrite = () => {
   return (
     <BackGround>
       <Wrapper>
-        {mockOrdered && (
+        {ordered && (
           <ContentWrapper>
             <OrderTitle>주문번호 {order_number}</OrderTitle>
             <Product>

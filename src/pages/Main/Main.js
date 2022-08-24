@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -14,6 +14,7 @@ import BestReviewItem from './components/BestReviewItem';
 import CategoryReviewItem from './components/CategoryReviewItem';
 import axios from 'axios';
 import MockBarChart from '../ProductDetail/components/MockBarChart';
+import { IP } from '../../config';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,7 +28,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -51,16 +52,13 @@ const Main = () => {
   const [chipName, setChipName] = useState('');
   const [chartData, setChartData] = useState({});
   const [value, setValue] = React.useState(0);
-
-  console.log('price?', reviewRanking);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   useEffect(() => {
     axios
-      .get('http://3.35.3.54:8000/reviews/write_list', {
+      .get(`${IP}reviews/write_list`, {
         headers: {
           Authorization: localStorage.getItem('access_token'),
         },
@@ -72,13 +70,13 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://3.35.3.54:8000/reviews/best').then(data => {
+    axios.get(`${IP}reviews/best`).then(data => {
       setBestReview(data.data.results);
     });
   }, []);
 
   useEffect(() => {
-    axios.get('http://3.35.3.54:8000/reviews/ranking').then(data => {
+    axios.get(`${IP}reviews/ranking`).then(data => {
       setReviewRanking(data.data.results);
       setCategory(data.data.results);
     });
@@ -96,23 +94,30 @@ const Main = () => {
         <BannerImg src="/Banner.png" />
       </Banner>
       <MainContentContainer component="main">
-        <WriteReview>
-          <Heading>리뷰 작성하기 &#9997;</Heading>
-          <SubText>BEST 후기 작성하고 적립금 받아가세요!</SubText>
-          <ReviewWrapper>
-            {orderInfo?.map((item, index) => {
-              return (
-                <OrderHistory
-                  key={index}
-                  orderDate={item.ordered_at}
-                  orderNumber={item.order_number}
-                  orderedItem={item.product}
-                />
-              );
-            })}
-          </ReviewWrapper>
-        </WriteReview>
-        <MainDivider />
+        {orderInfo[0] && (
+          <>
+            <WriteReview>
+              <Heading>리뷰 작성하기 &#9997;</Heading>
+              <SubText>BEST 후기 작성하고 적립금 받아가세요!</SubText>
+              <ReviewWrapper>
+                <OrderListWrapper>
+                  {orderInfo?.map((item, index) => {
+                    return (
+                      <OrderHistory
+                        key={index}
+                        orderDate={item.ordered_at}
+                        orderNumber={item.order_number}
+                        orderedItem={item.product}
+                        orderedId={item.order_item_id}
+                      />
+                    );
+                  })}
+                </OrderListWrapper>
+              </ReviewWrapper>
+            </WriteReview>
+            <MainDivider />
+          </>
+        )}
         <BestReview>
           <Heading>금주의 BEST 리뷰 &#10024;</Heading>
           <SubText>최근 한 달간 구매 내역 기준</SubText>
@@ -170,6 +175,7 @@ const Main = () => {
                     {reviewRanking?.map((item, index) => {
                       return (
                         <Tab
+                          key={index}
                           label={item.sub_category_name}
                           {...a11yProps(index)}
                         />
@@ -180,12 +186,18 @@ const Main = () => {
                 <Box>
                   {reviewRanking?.map((item, index) => {
                     return (
-                      <TabPanelContent value={value} index={index}>
+                      <TabPanelContent
+                        key={item.product_id}
+                        value={value}
+                        index={index}
+                      >
                         <PanelFlexBox>
                           {item?.product.map(review => {
                             return (
                               <CategoryReviewItem
+                                key={review.product_id}
                                 product={review.product_name}
+                                price={review.product_price}
                                 productId={review.product_id}
                                 productPrice={review.product_price}
                                 img={review.product_thumbnail}
@@ -209,8 +221,17 @@ const Main = () => {
 
 export default Main;
 
+const OrderListWrapper = styled.div`
+  overflow-y: scroll;
+  max-height: 24.5rem;
+  border: 1px solid #eee;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 const MainContainer = styled(Container)`
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -220,22 +241,20 @@ const MainDivider = styled(Divider)`
   margin: 3.25rem 0;
 `;
 
-const Heading = styled('p')`
-  font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 0.938rem;
-  margin-bottom: 0.063rem;
+const Heading = styled.h3`
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
 `;
 
-const SubText = styled('p')`
-  font-weight: 500;
-  font-size: 0.75rem;
+const SubText = styled('div')`
+  font-size: 14px;
   color: #999999;
 `;
 
 const Banner = styled(Box)`
-  margin-top: 1.875rem;
-  margin-bottom: 3.125rem;
+  margin-top: 2rem;
+  margin-bottom: 4.25rem;
 `;
 
 const BannerImg = styled('img')`
@@ -248,15 +267,20 @@ const MainContentContainer = styled(Container)`
   flex-direction: column;
   width: 65.625rem;
   height: 8.75rem;
+
+  @media (min-width: 600px) {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
-const WriteReview = styled(Box)`
+const WriteReview = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 const ReviewWrapper = styled('div')`
-  margin: 2rem 0 1.8rem -0.5rem;
+  margin-top: 1rem;
 `;
 
 const BestReview = styled(Box)``;
@@ -265,12 +289,19 @@ const BestReviewItems = styled(Container)`
   display: flex;
   align-items: center;
   height: 11.25rem;
-  overflow: auto;
+  overflow-y: scroll;
+
   ::-webkit-scrollbar {
     display: none;
   }
-  margin-left: -0.625rem;
-  margin-bottom: -1rem;
+
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 600px) {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 const ReviewRanking = styled(Box)``;
@@ -281,28 +312,32 @@ const ReviewRankingWrapper = styled('div')`
   width: 65.625rem;
   height: 20rem;
   overflow: auto;
+  margin: 0.25rem 0;
+
   ::-webkit-scrollbar {
     display: none;
   }
-  margin: 2.2rem 0 1.8rem 0;
 `;
 
 const ChipContainer = styled(Container)`
-  /* display: flex; */
   display: none;
   align-items: center;
   justify-content: space-between;
   height: 1.875rem;
-  margin-left: -0.6rem;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 600px) {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 const CategoryChip = styled(Chip)`
   font-weight: 600;
   font-size: 0.625rem;
-
   width: 4.688rem;
   height: 1.688rem;
-
   color: #5e0080;
 `;
 
@@ -312,6 +347,14 @@ const TopReviewWrapper = styled(Container)`
   width: 65.625rem;
   height: 18.75rem;
   margin-left: -0.625rem;
+
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 600px) {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 const TopReviewItems = styled(Container)`
@@ -324,15 +367,22 @@ const TopReviewItems = styled(Container)`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 600px) {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 const ChartBox = styled(Box)`
+  border: 1px solid black;
   width: 13.75rem;
   height: 13.75rem;
   margin-right: 1.9rem;
 `;
-
-const ChartImg = styled('img')``;
 
 const TabPanelContent = styled(TabPanel)`
   display: flex;
@@ -343,8 +393,10 @@ const TabPanelContent = styled(TabPanel)`
 `;
 
 const PanelFlexBox = styled(Box)`
+  margin-top: 2rem;
   display: flex;
   overflow: auto;
+
   ::-webkit-scrollbar {
     display: none;
   }

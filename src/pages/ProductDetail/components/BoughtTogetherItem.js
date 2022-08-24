@@ -54,7 +54,7 @@ const RectangleImg = styled('img')`
   border-radius: 8px;
 `;
 
-const ItemTitle = styled('p')`
+const ItemTitle = styled('div')`
   width: 8.75rem;
   height: 2.063rem;
 
@@ -75,7 +75,7 @@ const ItemBox = styled(Box)`
   padding-right: 0.313rem;
 `;
 
-const Price = styled('p')`
+const Price = styled('div')`
   width: 3.313rem;
   height: 1.188rem;
 
