@@ -52,6 +52,8 @@ const Main = () => {
   const [chartData, setChartData] = useState({});
   const [value, setValue] = React.useState(0);
 
+  console.log('price?', reviewRanking);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

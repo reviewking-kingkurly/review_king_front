@@ -7,6 +7,7 @@ const CategoryReviewItem = ({ product, img, productId, productPrice }) => {
   const navigate = useNavigate();
   const goToDetail = () => {
     navigate(`/products/${productId}`);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
   return (
     <ReviewItemBox onClick={goToDetail}>

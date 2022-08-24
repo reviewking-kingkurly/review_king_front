@@ -7,6 +7,7 @@ const BestReviewItem = ({ product, price, review, thumbnail, productId }) => {
   const navigate = useNavigate();
   const goToDetail = () => {
     navigate(`/products/${productId}`);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   return (
