@@ -378,7 +378,6 @@ const TopReviewItems = styled(Container)`
 `;
 
 const ChartBox = styled(Box)`
-  border: 1px solid black;
   width: 13.75rem;
   height: 13.75rem;
   margin-right: 1.9rem;

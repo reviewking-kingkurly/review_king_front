@@ -42,6 +42,7 @@ const BarChartCategory = ({ category, labelData, countData }) => {
         text: 'BEST 카테고리',
       },
     },
+    responsive: false,
   };
 
   const labels = [...labelData];
@@ -62,7 +63,13 @@ const BarChartCategory = ({ category, labelData, countData }) => {
       },
     ],
   };
-  return <Bar options={options} data={data} />;
+  return (
+    <Bar
+      options={options}
+      data={data}
+      style={{ height: '14rem', width: '13rem' }}
+    />
+  );
 };
 
 export default BarChartCategory;
