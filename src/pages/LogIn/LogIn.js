@@ -113,7 +113,7 @@ const LoginForm = styled(Box)`
 
 const IdInput = styled(TextField)`
   margin-top: 3.25rem;
-  margin-bottom: 2.25rem;
+  margin-bottom: 2rem;
 `;
 const PwInput = styled(TextField)`
   margin: 0.2rem 0 0 0;
