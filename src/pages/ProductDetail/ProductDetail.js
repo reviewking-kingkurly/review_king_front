@@ -43,10 +43,9 @@ function a11yProps(index) {
 
 const ProductDetail = () => {
   const { id } = useParams();
-
   const [value, setValue] = React.useState(0);
-
   const [productDetail, setProductDetail] = useState([]);
+
   useEffect(() => {
     axios.get(`http://10.58.4.207:8000/products/${id}`).then(data => {
       setProductDetail(data.data.results);
@@ -91,7 +90,6 @@ const ProductDetail = () => {
     axios
       .get(`http://10.58.4.207:8000/products/${id}/related_cate`)
       .then(data => {
-        console.log('data for category', data.data.results);
         setCategory(data.data.results);
       });
   }, [id]);
@@ -210,7 +208,7 @@ const DescriptionContainer = styled(Container)``;
 const ProductNameBox = styled(Box)``;
 const PriceBox = styled(Box)``;
 
-const ProductName = styled('p')`
+const ProductName = styled('div')`
   width: 25rem;
   height: 2.063rem;
 
@@ -221,7 +219,7 @@ const ProductName = styled('p')`
   color: #000000;
 `;
 
-const Description = styled('p')`
+const Description = styled('div')`
   width: 25rem;
   height: 1.188rem;
 
@@ -232,7 +230,7 @@ const Description = styled('p')`
   color: #cccccc;
 `;
 
-const Price = styled('p')`
+const Price = styled('div')`
   display: inline-block;
 
   width: 4.5rem;
@@ -245,7 +243,7 @@ const Price = styled('p')`
   color: #000000;
 `;
 
-const PriceWon = styled('p')`
+const PriceWon = styled('div')`
   display: inline-block;
 
   width: 1.688rem;

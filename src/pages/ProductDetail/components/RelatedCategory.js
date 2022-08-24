@@ -94,11 +94,16 @@ const RelatedCategory = ({
             <Box>
               {relatedList?.map((item, index) => {
                 return (
-                  <TabPanelContent value={value} index={index}>
+                  <TabPanelContent
+                    key={item.sub_category_name}
+                    value={value}
+                    index={index}
+                  >
                     <PanelFlexBox>
                       {item?.product.map(review => {
                         return (
                           <CategoryReviewItem
+                            key={review.product_name}
                             product={review.product_name}
                             img={review.product_thumbnail}
                           />
@@ -118,7 +123,7 @@ const RelatedCategory = ({
 
 export default RelatedCategory;
 
-const Heading = styled('p')`
+const Heading = styled('div')`
   width: 17.125rem;
   height: 0.5rem;
 
@@ -129,7 +134,7 @@ const Heading = styled('p')`
   color: #000000;
 `;
 
-const SubText = styled('p')`
+const SubText = styled('div')`
   width: 18.5rem;
   height: 0.5rem;
 

@@ -46,7 +46,7 @@ const ProductReviewBox = styled(Box)`
   margin-bottom: 32px;
 `;
 
-const ReviewHeader = styled('p')`
+const ReviewHeader = styled('div')`
   width: 300px;
   height: 25px;
 
@@ -57,7 +57,7 @@ const ReviewHeader = styled('p')`
   color: #000000;
 `;
 
-const ReviewSubText = styled('p')`
+const ReviewSubText = styled('div')`
   width: 627px;
   height: 36px;
 

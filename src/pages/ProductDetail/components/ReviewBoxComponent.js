@@ -42,7 +42,7 @@ export default ReviewBoxComponent;
 
 const ReviewContainer = styled(Container)``;
 
-const CurlyReview = styled('p')`
+const CurlyReview = styled('div')`
   width: 64px;
   height: 22px;
 
@@ -53,7 +53,7 @@ const CurlyReview = styled('p')`
   color: #000000;
 `;
 
-const ReviewDescription = styled('p')`
+const ReviewDescription = styled('div')`
   width: 290px;
   height: 16px;
 
