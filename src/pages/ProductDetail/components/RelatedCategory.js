@@ -11,6 +11,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import MockDonutChart from './MockDonutChart';
 import RelatedCategoryItem from './RelatedCategoryItem';
+import { IP } from '../../../config';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -63,9 +64,7 @@ const RelatedCategory = ({
   useEffect(() => {
     subIds?.map(id => {
       axios
-        .get(
-          `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
-        )
+        .get(`${IP}products/${productId}/related_prod?sub_category=${id}`)
         .then(data => {
           itemsList.push(data.data.results);
         });
