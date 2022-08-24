@@ -20,11 +20,8 @@ const DoughnutChart = () => {
   useEffect(() => {
     axios.get('http://localhost:3000/data/doughnutData.json').then(data => {
       setDonutData(data.data.results);
-      console.log('donut', data.data.results);
     });
   }, []);
-
-  console.log(donutData);
 
   const getLabel = arr => {
     const labelArr = [];

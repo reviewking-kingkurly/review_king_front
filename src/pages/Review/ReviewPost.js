@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { IP } from '../../config';
 
 const ReviewPost = () => {
+  const params = useParams();
   const navigate = useNavigate();
-  const [mockReview, setMockReview] = useState('');
+  const [review, setReview] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
   const [liked, setLiked] = useState(false);
   const [prevLike, setPrevLike] = useState('');
@@ -25,19 +26,17 @@ const ReviewPost = () => {
     product_description,
     review_like,
     product_purchased_with,
-  } = mockReview;
+  } = review;
 
   useEffect(() => {
-    const review_id = 57;
-    fetch(`${IP}reviews/${review_id}`, {
+    fetch(`${IP}reviews/${params.id}`, {
       headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NjEyOTg2MzR9.mw_tzk8jY3pHUdtTofBi5LMFu_Tfnq5-IR0yh1D6e1o',
+        Authorization: localStorage.getItem('access_token'),
       },
     })
       .then(res => res.json())
       .then(data => {
-        setMockReview(data.results);
+        setReview(data.results);
         getUserGrade(data.results.user_grade);
         getUserLike(data.results.review_like_choice);
         setPrevLike(data.results.review_like);
@@ -47,7 +46,7 @@ const ReviewPost = () => {
   }, []);
 
   const MEMBER_GRADE = [
-    { id: 1, name: '일반', color: '#d' },
+    { id: 1, name: '일반', color: '#b1a9c6' },
     { id: 2, name: '프렌즈', color: '#d2beff' },
     { id: 3, name: '화이트', color: '#ba99e1' },
     { id: 4, name: '라벤더', color: '#a775d6' },
@@ -85,11 +84,16 @@ const ReviewPost = () => {
     navigate(`/product/${id}`);
   };
 
+  const goToMain = () => {
+    localStorage.getItem('access_token');
+    navigate('/');
+  };
+
   return (
     <BackGround>
       <ModalWrapper>
-        <CloseButton>x</CloseButton>
-        {mockReview && (
+        <CloseButton onClick={goToMain}>✕</CloseButton>
+        {review && (
           <ContentWrapper>
             <TopSide>
               {review_image.length === 0 || (
@@ -148,39 +152,44 @@ const ReviewPost = () => {
                 </LikeButton>
               </ReviewWrapper>
             </TopSide>
-            <BottomSide>
-              <h4>함께 구매한 상품</h4>
-              <ProductCardWrapper>
-                {product_purchased_with.map(
-                  ({
-                    product_id,
-                    product_name,
-                    product_price,
-                    product_thumbnail,
-                  }) => (
-                    <ProductCard
-                      key={product_id}
-                      value={product_id}
-                      onClick={() => {
-                        goToPage(product_id);
-                      }}
-                    >
-                      <ProductCardImage
-                        alt="product image"
-                        src={product_thumbnail}
-                      />
-                      <ProductCardInfo>
-                        <ProductName>{product_name}</ProductName>
-                        <ProductPrice>
-                          {product_price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
-                          원
-                        </ProductPrice>
-                      </ProductCardInfo>
-                    </ProductCard>
-                  )
-                )}
-              </ProductCardWrapper>
-            </BottomSide>
+            {product_purchased_with.length === 0 || (
+              <BottomSide>
+                <h4>함께 구매한 상품</h4>
+                <ProductCardWrapper>
+                  {product_purchased_with.map(
+                    ({
+                      product_id,
+                      product_name,
+                      product_price,
+                      product_thumbnail,
+                    }) => (
+                      <ProductCard
+                        key={product_id}
+                        value={product_id}
+                        onClick={() => {
+                          goToPage(product_id);
+                        }}
+                      >
+                        <ProductCardImage
+                          alt="product image"
+                          src={product_thumbnail}
+                        />
+                        <ProductCardInfo>
+                          <ProductName>{product_name}</ProductName>
+                          <ProductPrice>
+                            {product_price.replace(
+                              /\B(?=(\d{3})+(?!\d))/g,
+                              ','
+                            )}{' '}
+                            원
+                          </ProductPrice>
+                        </ProductCardInfo>
+                      </ProductCard>
+                    )
+                  )}
+                </ProductCardWrapper>
+              </BottomSide>
+            )}
           </ContentWrapper>
         )}
       </ModalWrapper>
@@ -191,9 +200,14 @@ const ReviewPost = () => {
 export default ReviewPost;
 
 const CloseButton = styled.button`
+  background: none;
+  border: none;
   position: absolute;
+  font-size: 18px;
   top: 2.375rem;
   right: 2.375rem;
+  color: #ccc;
+  cursor: pointer;
 `;
 
 const TopSide = styled.div`
@@ -389,6 +403,7 @@ const ProductPrice = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
+
   h3 {
     font-size: 24px;
     font-weight: 600;
@@ -411,8 +426,6 @@ const ContentWrapper = styled.div`
 
 const ModalWrapper = styled.div`
   position: relative;
-  /* width: 83.125rem; */
-  height: 44.063rem;
   margin: 10vh;
   padding: 4.5rem 8.75rem;
   background-color: white;
