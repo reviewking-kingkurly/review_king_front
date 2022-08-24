@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { IP } from '../../config';
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ReviewWrite = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [ordered, setOrdered] = useState('');
   const [input, setInput] = useState('');
   const [inputImages, setInputImages] = useState([]);
@@ -62,11 +63,11 @@ const ReviewWrite = () => {
       .then(data => {
         if (data.message === 'THE_REVIEW_ALREADY_EXISTS') {
           alert('이미 작성 된 리뷰가 있습니다.');
-          Navigate('/');
+          navigate('/');
         }
         if (data.message === 'SUCCESS') {
           alert('리뷰 작성이 완료되었습니다.');
-          Navigate('/');
+          navigate('/');
         }
       });
   };
