@@ -177,7 +177,7 @@ const ReviewPost = () => {
                         <ProductCardInfo>
                           <ProductName>{product_name}</ProductName>
                           <ProductPrice>
-                            {product_price.replace(
+                            {product_price?.replace(
                               /\B(?=(\d{3})+(?!\d))/g,
                               ','
                             )}{' '}

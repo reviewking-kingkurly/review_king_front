@@ -199,7 +199,7 @@ const ReviewWrite = () => {
                       <ContentBox>
                         <ContentName>{product_name}</ContentName>
                         <ContentPrice>
-                          {product_price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                          {product_price?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
                           원
                         </ContentPrice>
                       </ContentBox>

@@ -13,7 +13,7 @@ const CategoryReviewItem = ({ price, product, img, productId }) => {
     <ReviewItemBox onClick={goToDetail}>
       <RectangleImg src={img} />
       <ProductName>{product}</ProductName>
-      <Price>{price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</Price>
+      <Price>{price?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</Price>
     </ReviewItemBox>
   );
 };
