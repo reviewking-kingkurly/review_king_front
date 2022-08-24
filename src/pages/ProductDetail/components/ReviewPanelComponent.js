@@ -43,12 +43,14 @@ const BottomHr = styled(Divider)`
 `;
 
 const ProductReviewBox = styled(Box)`
-  margin-bottom: 32px;
+  /* margin-bottom: 32px; */
+  margin: 2rem 0 1rem 0;
 `;
 
 const ReviewHeader = styled('div')`
   width: 300px;
   height: 25px;
+  margin-bottom: 0.2rem;
 
   font-weight: 600;
   font-size: 18px;

@@ -43,19 +43,19 @@ export default ReviewBoxComponent;
 const ReviewContainer = styled(Container)``;
 
 const CurlyReview = styled('div')`
-  width: 64px;
-  height: 22px;
+  width: 4rem;
+  height: 1.375rem;
 
   font-weight: 600;
   font-size: 16px;
-  line-height: 22px;
+  line-height: 25px;
 
   color: #000000;
 `;
 
 const ReviewDescription = styled('div')`
-  width: 290px;
-  height: 16px;
+  width: 18.125rem;
+  height: 2rem;
 
   font-weight: 500;
   font-size: 12px;
@@ -65,8 +65,8 @@ const ReviewDescription = styled('div')`
 `;
 
 const ReviewBox = styled(Container)`
-  width: 580px;
-  height: 300px;
+  width: 36.25rem;
+  height: 20rem;
   padding-top: 8px;
 
   border: 1px solid #eeeeee;
@@ -79,6 +79,6 @@ const ReviewBox = styled(Container)`
 `;
 
 const Hr = styled(Divider)`
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 9px;
+  margin-bottom: 9px;
 `;
