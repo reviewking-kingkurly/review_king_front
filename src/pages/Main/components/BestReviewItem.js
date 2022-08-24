@@ -7,7 +7,6 @@ const BestReviewItem = ({ reviewId, product, price, review, thumbnail }) => {
   const navigate = useNavigate();
   const goToDetail = () => {
     navigate(`/review/${reviewId}`);
-
   };
 
   return (
