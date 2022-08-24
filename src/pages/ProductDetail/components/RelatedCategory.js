@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
@@ -9,9 +9,8 @@ import Container from '@mui/material/Container';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import CategoryReviewItem from '../../Main/components/CategoryReviewItem';
 import MockDonutChart from './MockDonutChart';
-import Props from './Props';
+import RelatedCategoryItem from './RelatedCategoryItem';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,20 +48,34 @@ const RelatedCategory = ({
   const [value, setValue] = React.useState(0);
   const [itemsList, setItemsList] = useState([]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const getSubId = arr => {
+    const idArr = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      idArr.push(arr[i].sub_category_id);
+    }
+
+    return idArr;
   };
 
-  const getCategoryData = id => {
-    axios
-      .get(
-        `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
-      )
-      .then(data => {
-        // console.log('getCategory', data);
-        setItemsList(data.data.results);
-        // alert(data.data);
-      });
+  const subIds = [...getSubId(category)];
+
+  useEffect(() => {
+    subIds?.map(id => {
+      axios
+        .get(
+          `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
+        )
+        .then(data => {
+          itemsList.push(data.data.results);
+        });
+    });
+  });
+
+  console.log('sub', subIds);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
   return (
@@ -95,29 +108,21 @@ const RelatedCategory = ({
               </Tabs>
             </Box>
             <Box>
-              {/* 0: {sub_category_id: 35, sub_category_name: '우유', sub_category_count: 4, sub_category_share: 36}
-1: {sub_category_id: 10, sub_category_name: '바나나', sub_category_count: 3, sub_category_share: 27}
-2: {sub_category_id: 26, sub_category_name: '베이컨', sub_category_count: 2, sub_category_share: 18}
-3: {sub_category_id: 34, sub_category_name: '밀가루', sub_category_count: 1, sub_category_share: 9}
-4: {sub_category_id: 4, sub_category_name: '양파', sub_category_count: 1, sub_category_share: 9} */}
-              {/* {itemsList?.map((item, index) => {
-                console.log(item);
+              {itemsList?.map((list, index) => {
                 return (
                   <TabPanelContent key={index} value={value} index={index}>
                     <PanelFlexBox>
-                      <CategoryReviewItem
-                        product={item.product_name}
-                        img={item.product_thumbnail}
-                        productPrice={item.product_price}
-                      />
+                      {list?.map(item => {
+                        return (
+                          <RelatedCategoryItem
+                            product={item.product_name}
+                            img={item.product_thumbnail}
+                            price={item.product_price}
+                          />
+                        );
+                      })}
                     </PanelFlexBox>
                   </TabPanelContent>
-                );
-              })} */}
-
-              {category?.map((item, index) => {
-                return (
-                  <Props item={item} productId={productId} index={index} />
                 );
               })}
             </Box>
