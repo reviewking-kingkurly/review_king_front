@@ -1,38 +1,36 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import DoughnutChart from './DoughnutChart';
 
 ChartJS.register(ArcElement, Tooltip);
 
-export const data = {
-  labels: ['양파', '당근', '감자', '마늘', '대파'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [6, 4, 3, 3, 2],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
+const MockData = ({ category }) => {
+  const getLabel = arr => {
+    const labelArr = [];
 
-const MockData = () => {
+    for (let i = 0; i < arr.length; i++) {
+      labelArr.push(arr[i].sub_category_name);
+    }
+
+    return labelArr;
+  };
+
+  const getCount = arr => {
+    const countArr = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      countArr.push(arr[i].sub_category_count);
+    }
+
+    return countArr;
+  };
+
+  const labelData = [...getLabel(category)];
+  const countData = [...getCount(category)];
+
   return (
     <div className="chart doughnut">
-      <Doughnut data={data} />
+      <DoughnutChart labelData={labelData} countData={countData} />
     </div>
   );
 };

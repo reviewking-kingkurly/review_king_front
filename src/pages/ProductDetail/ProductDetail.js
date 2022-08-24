@@ -44,10 +44,14 @@ function a11yProps(index) {
 const ProductDetail = () => {
   const { id } = useParams();
   const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const [productDetail, setProductDetail] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://10.58.4.207:8000/products/${id}`).then(data => {
+    axios.get(`http://3.35.3.54:8000/products/${id}`).then(data => {
       setProductDetail(data.data.results);
     });
   }, [id]);
@@ -55,7 +59,7 @@ const ProductDetail = () => {
   const [boughtTogether, setBoughtTogether] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://10.58.4.207:8000/products/${id}/purchased_prod`)
+      .get(`http://3.35.3.54:8000/products/${id}/purchased_prod`)
       .then(data => {
         setBoughtTogether(data.data.results);
       });
@@ -63,7 +67,7 @@ const ProductDetail = () => {
 
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    axios.get(`http://10.58.4.207:8000/reviews/list/${id}`).then(data => {
+    axios.get(`http://3.35.3.54:8000/reviews/list/${id}`).then(data => {
       setReviews(data.data.results);
     });
   }, [id]);
@@ -74,30 +78,31 @@ const ProductDetail = () => {
   const productImg = productDetail?.product_thumbnail;
   const productId = productDetail?.product_id;
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const [relatedList, setRelatedList] = useState([]);
-  useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
-      setRelatedList(data.data.results);
-    });
-  }, []);
-
   const [category, setCategory] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://10.58.4.207:8000/products/${id}/related_cate`)
+      .get(`http://3.35.3.54:8000/products/${id}/related_cate`)
       .then(data => {
         setCategory(data.data.results);
       });
-  }, [id]);
+  }, []);
 
   const [chipName, setChipName] = useState('');
+
   const getCategoryName = e => {
     const categoryName = e.target.innerText;
     setChipName(categoryName);
+  };
+
+  const getSubCategory = id => {
+    axios
+      .get(
+        `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
+      )
+      .then(data => {
+        console.log('getCategory', data);
+        // setItemsList(data.data.results);
+      });
   };
 
   return (
@@ -149,9 +154,9 @@ const ProductDetail = () => {
             >
               <RelatedCategory
                 productName={productName}
+                productId={id}
                 category={category}
                 getCategoryName={getCategoryName}
-                relatedList={relatedList}
               />
               <Divider
                 sx={{

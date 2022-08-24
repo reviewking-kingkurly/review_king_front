@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -7,8 +9,8 @@ import Container from '@mui/material/Container';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import CategoryReviewItem from '../../Main/components/CategoryReviewItem';
 import MockDonutChart from './MockDonutChart';
+import RelatedCategoryItem from './RelatedCategoryItem';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,12 +40,40 @@ function a11yProps(index) {
 }
 
 const RelatedCategory = ({
+  productId,
   productName,
   category,
   getCategoryName,
-  relatedList,
 }) => {
   const [value, setValue] = React.useState(0);
+  const [itemsList, setItemsList] = useState([]);
+
+  const getSubId = arr => {
+    const idArr = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      idArr.push(arr[i].sub_category_id);
+    }
+
+    return idArr;
+  };
+
+  const subIds = [...getSubId(category)];
+
+  useEffect(() => {
+    subIds?.map(id => {
+      axios
+        .get(
+          `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
+        )
+        .then(data => {
+          itemsList.push(data.data.results);
+        });
+    });
+  });
+
+  console.log('sub', subIds);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -54,23 +84,11 @@ const RelatedCategory = ({
       <SubText>{productName}의 최근 한 달간 구매 내역 기준</SubText>
       <CategoryWrapper>
         <ChipsContainer>
-          <CategoryStack direction="row" spacing={1}>
-            {category?.map((item, index) => {
-              return (
-                <CategoryTab
-                  key={index}
-                  label={item.sub_category_name}
-                  variant="outlined"
-                  onClick={getCategoryName}
-                />
-              );
-            })}
-          </CategoryStack>
+          <CategoryStack direction="row" spacing={1} />
         </ChipsContainer>
         <ChartWrapper>
           <ChartBox>
-            {/* <ChartImg src="/Doughnut.png" /> */}
-            <MockDonutChart />
+            <MockDonutChart category={category} />
           </ChartBox>
           <CategoryItems>
             <Box sx={{ width: '100%' }}>
@@ -82,7 +100,7 @@ const RelatedCategory = ({
                 indicatorColor="secondary"
                 variant="fullWidth"
               >
-                {relatedList?.map((item, index) => {
+                {category?.map((item, index) => {
                   return (
                     <Tab label={item.sub_category_name} {...a11yProps(index)} />
                   );
@@ -90,20 +108,16 @@ const RelatedCategory = ({
               </Tabs>
             </Box>
             <Box>
-              {relatedList?.map((item, index) => {
+              {itemsList?.map((list, index) => {
                 return (
-                  <TabPanelContent
-                    key={item.sub_category_name}
-                    value={value}
-                    index={index}
-                  >
+                  <TabPanelContent key={index} value={value} index={index}>
                     <PanelFlexBox>
-                      {item?.product.map(review => {
+                      {list?.map(item => {
                         return (
-                          <CategoryReviewItem
-                            key={review.product_name}
-                            product={review.product_name}
-                            img={review.product_thumbnail}
+                          <RelatedCategoryItem
+                            product={item.product_name}
+                            img={item.product_thumbnail}
+                            price={item.product_price}
                           />
                         );
                       })}

@@ -159,7 +159,8 @@ const Main = () => {
             </ChipContainer>
             <TopReviewWrapper>
               <ChartBox>
-                <MockBarChart />
+                <MockBarChart category={category} />
+                {/* <ChartImg src="/Chart.png" /> */}
               </ChartBox>
               <TopReviewItems>
                 <Box sx={{ width: '100%' }}>
@@ -198,6 +199,7 @@ const Main = () => {
                                 product={review.product_name}
                                 price={review.product_price}
                                 productId={review.product_id}
+                                productPrice={review.product_price}
                                 img={review.product_thumbnail}
                               />
                             );
@@ -376,7 +378,6 @@ const TopReviewItems = styled(Container)`
 `;
 
 const ChartBox = styled(Box)`
-  border: 1px solid black;
   width: 13.75rem;
   height: 13.75rem;
   margin-right: 1.9rem;

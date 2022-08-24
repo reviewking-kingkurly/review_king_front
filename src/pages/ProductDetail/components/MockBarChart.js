@@ -7,34 +7,39 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import BarChartCategory from '../../Main/components/BarChartCategory';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
-export const options = {
-  plugins: {
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
-};
+const MockBarChart = ({ category }) => {
+  const getLabel = arr => {
+    const labelArr = [];
 
-const labels = ['January', 'February', 'March', 'April'];
+    for (let i = 0; i < arr.length; i++) {
+      labelArr.push(arr[i].sub_category_name);
+    }
+    return labelArr;
+  };
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [1, 2, 3, 4],
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
+  const getCount = arr => {
+    const countArr = [];
 
-const MockBarChart = () => {
-  return <Bar options={options} data={data} />;
+    for (let i = 0; i < arr.length; i++) {
+      countArr.push(arr[i].review_count);
+    }
+    return countArr;
+  };
+
+  const labelData = [...getLabel(category)];
+  const countData = [...getCount(category)];
+
+  return (
+    <BarChartCategory
+      category={category}
+      labelData={labelData}
+      countData={countData}
+    />
+  );
 };
 
 export default MockBarChart;

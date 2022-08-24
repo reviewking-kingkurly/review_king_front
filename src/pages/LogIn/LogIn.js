@@ -18,6 +18,7 @@ const LogIn = () => {
       user_email: data.get('email'),
       user_password: data.get('password'),
     };
+
     try {
       const res = await axios.post(`${IP}users/login`, userData);
       if (res.statusText === 'OK') {

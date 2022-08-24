@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-const CategoryReviewItem = ({ price, product, img, productId }) => {
+const RelatedCategoryItem = ({ price, product, img, productId }) => {
   const navigate = useNavigate();
   const goToDetail = () => {
     navigate(`/products/${productId}`);
@@ -13,12 +13,12 @@ const CategoryReviewItem = ({ price, product, img, productId }) => {
     <ReviewItemBox onClick={goToDetail}>
       <RectangleImg src={img} />
       <ProductName>{product}</ProductName>
-      <Price>{price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</Price>
+      <Price>{price} 원</Price>
     </ReviewItemBox>
   );
 };
 
-export default CategoryReviewItem;
+export default RelatedCategoryItem;
 
 const ReviewItemBox = styled(Box)`
   height: 13.75rem;
@@ -37,7 +37,7 @@ const RectangleImg = styled('img')`
 `;
 
 const Price = styled('div')`
-  width: 9rem;
+  width: 3.313rem;
   height: 1.188rem;
   margin-top: 1rem;
   font-weight: 600;
