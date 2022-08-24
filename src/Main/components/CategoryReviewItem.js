@@ -3,17 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-const CategoryReviewItem = ({ product, img, productId }) => {
+const CategoryReviewItem = ({ product, img, productId, productPrice }) => {
   const navigate = useNavigate();
   const goToDetail = () => {
     navigate(`/products/${productId}`);
   };
-
   return (
     <ReviewItemBox onClick={goToDetail}>
       <RectangleImg src={img} />
       <ProductName>{product}</ProductName>
-      <Price>price</Price>
+      <Price>{productPrice}원</Price>
     </ReviewItemBox>
   );
 };
