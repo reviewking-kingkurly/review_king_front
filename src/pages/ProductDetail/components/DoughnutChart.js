@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -25,6 +26,7 @@ const DoughnutChart = ({ labelData, countData }) => {
         borderWidth: 1,
       },
     ],
+
   };
 
   return <Doughnut data={data} />;

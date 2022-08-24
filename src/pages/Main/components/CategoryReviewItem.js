@@ -37,7 +37,7 @@ const RectangleImg = styled('img')`
 `;
 
 const Price = styled('div')`
-  width: 3.313rem;
+  width: 9rem;
   height: 1.188rem;
   margin-top: 1rem;
   font-weight: 600;

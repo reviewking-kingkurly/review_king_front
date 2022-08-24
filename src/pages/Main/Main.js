@@ -128,10 +128,10 @@ const Main = () => {
                   <BestReviewItem
                     key={item.review_id}
                     product={item.product_name}
-                    productId={item.product_id}
                     review={item.review_content}
                     thumbnail={item.product_thumbnail}
                     price={item.product_price}
+                    reviewId={item.review_id}
                   />
                 );
               })}
