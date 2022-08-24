@@ -27,7 +27,7 @@ const GeneralReviewBox = styled(Box)`
   align-items: end;
 `;
 
-const Liked = styled('p')`
+const Liked = styled('div')`
   display: inline-block;
   width: 40px;
   height: 14px;
@@ -39,7 +39,7 @@ const Liked = styled('p')`
   color: #999999;
 `;
 
-const Date = styled('p')`
+const Date = styled('div')`
   width: 100px;
   height: 12px;
   margin-top: 1px;
@@ -51,7 +51,7 @@ const Date = styled('p')`
   color: #cccccc;
 `;
 
-const ReviewBoxContent = styled('p')`
+const ReviewBoxContent = styled('div')`
   width: 415px;
   height: 42px;
   margin-right: 10px;
@@ -86,7 +86,7 @@ const Rank = styled(Chip)`
   background-color: #a06ab4;
 `;
 
-const GeneralReview = styled('p')`
+const GeneralReview = styled('div')`
   display: inline-block;
   width: 125px;
   height: 16px;
@@ -98,7 +98,7 @@ const GeneralReview = styled('p')`
   color: #000000;
 `;
 
-const UserName = styled('p')`
+const UserName = styled('div')`
   display: inline;
 
   text-align: center;

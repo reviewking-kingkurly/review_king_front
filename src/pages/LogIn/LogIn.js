@@ -21,6 +21,8 @@ const LogIn = () => {
     try {
       const res = await axios.post(`${IP}users/login`, userData);
       if (res.statusText === 'OK') {
+        localStorage.setItem('user_name', res.data.user_name);
+        localStorage.setItem('user_grade', res.data.user_grade);
         localStorage.setItem('access_token', res.data.access_token);
         navigate('/');
       }

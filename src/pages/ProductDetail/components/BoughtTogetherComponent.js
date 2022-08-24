@@ -34,7 +34,7 @@ const BoughtTogetherComponent = ({
 
 export default BoughtTogetherComponent;
 
-const Heading = styled('p')`
+const Heading = styled('div')`
   width: 17.125rem;
   height: 0.5rem;
 
@@ -45,7 +45,7 @@ const Heading = styled('p')`
   color: #000000;
 `;
 
-const SubText = styled('p')`
+const SubText = styled('div')`
   width: 18.5rem;
   height: 0.5rem;
 

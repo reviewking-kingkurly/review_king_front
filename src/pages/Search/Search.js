@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { IP } from '../../config';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
+  const navigate = useNavigate();
   const [productList, setProductList] = useState();
   const [reviewList, setReviewList] = useState();
   const [value, setValue] = useState();
@@ -24,7 +26,11 @@ const Search = () => {
   return (
     <BackGround>
       <ModalWrapper>
-        <CloseButton>x</CloseButton>
+        <CloseButton
+        // onClick={() => navigate('/main')}
+        >
+          x
+        </CloseButton>
         <ContentWrapper>
           <SearchBox
             value={value || ''}

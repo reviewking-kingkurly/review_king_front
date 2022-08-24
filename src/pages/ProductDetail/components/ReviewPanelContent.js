@@ -115,7 +115,7 @@ const Rank = styled(Chip)`
   background-color: #a06ab4;
 `;
 
-const NickName = styled('p')`
+const NickName = styled('div')`
   width: 58px;
   height: 20px;
 
@@ -125,7 +125,7 @@ const NickName = styled('p')`
   color: #000000;
 `;
 
-const Date = styled('p')`
+const Date = styled('div')`
   width: 90px;
   height: 14px;
   margin-top: 1px;
@@ -143,7 +143,7 @@ const ReviewImg = styled('img')`
   border-radius: 8px;
 `;
 
-const ReviewContentBox = styled('p')`
+const ReviewContentBox = styled('div')`
   width: 888px;
   padding-bottom: -2rem;
 
@@ -158,7 +158,7 @@ const RecommendationBox = styled(Box)`
   margin-top: 50px;
 `;
 
-const Recommendation = styled('p')`
+const Recommendation = styled('div')`
   width: 98px;
   height: 19px;
 
@@ -198,7 +198,7 @@ const RectangleImg = styled('img')`
   border-radius: 8px;
 `;
 
-const ItemTitle = styled('p')`
+const ItemTitle = styled('div')`
   width: 95px;
   height: 29px;
 
@@ -215,7 +215,7 @@ const RecommendationItem = styled(Box)`
   margin-left: 12px;
 `;
 
-const ItemPrice = styled('p')`
+const ItemPrice = styled('div')`
   width: 42px;
   height: 15px;
 
