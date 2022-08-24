@@ -22,11 +22,9 @@ const LogIn = () => {
       user_password: data.get('password'),
     };
 
-    console.log(userData);
-
     try {
       const res = await axios.post(
-        'http://10.58.4.207:8000/users/login',
+        'http://3.35.3.54:8000/users/login',
         userData
       );
 

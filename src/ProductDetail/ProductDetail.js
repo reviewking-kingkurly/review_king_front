@@ -48,7 +48,7 @@ const ProductDetail = () => {
 
   const [productDetail, setProductDetail] = useState([]);
   useEffect(() => {
-    axios.get(`http://10.58.4.207:8000/products/${id}`).then(data => {
+    axios.get(`http://3.35.3.54:8000/products/${id}`).then(data => {
       setProductDetail(data.data.results);
     });
   }, [id]);
@@ -56,7 +56,7 @@ const ProductDetail = () => {
   const [boughtTogether, setBoughtTogether] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://10.58.4.207:8000/products/${id}/purchased_prod`)
+      .get(`http://3.35.3.54:8000/products/${id}/purchased_prod`)
       .then(data => {
         setBoughtTogether(data.data.results);
       });
@@ -64,7 +64,7 @@ const ProductDetail = () => {
 
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    axios.get(`http://10.58.4.207:8000/reviews/list/${id}`).then(data => {
+    axios.get(`http://3.35.3.54:8000/reviews/list/${id}`).then(data => {
       setReviews(data.data.results);
     });
   }, [id]);
@@ -78,25 +78,25 @@ const ProductDetail = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const [relatedList, setRelatedList] = useState([]);
-  useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
-      setRelatedList(data.data.results);
-    });
-  }, []);
-
   const [category, setCategory] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://10.58.4.207:8000/products/${id}/related_cate`)
+      .get(`http://3.35.3.54:8000/products/${id}/related_cate`)
       .then(data => {
         console.log('data for category', data.data.results);
         setCategory(data.data.results);
       });
-  }, [id]);
+  }, []);
+
+  const [relatedList, setRelatedList] = useState([]);
+  useEffect(() => {
+    axios.get(`http://3.35.3.54:8000/reviews/ranking`).then(data => {
+      setRelatedList(data.data.results);
+    });
+  }, []);
 
   const [chipName, setChipName] = useState('');
+
   const getCategoryName = e => {
     const categoryName = e.target.innerText;
     setChipName(categoryName);
@@ -151,6 +151,7 @@ const ProductDetail = () => {
             >
               <RelatedCategory
                 productName={productName}
+                productId={id}
                 category={category}
                 getCategoryName={getCategoryName}
                 relatedList={relatedList}

@@ -59,7 +59,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get('http://10.58.4.207:8000/reviews/write_list', {
+      .get('http://3.35.3.54:8000/reviews/write_list', {
         headers: {
           Authorization: localStorage.getItem('access_token'),
         },
@@ -71,16 +71,15 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/best').then(data => {
+    axios.get('http://3.35.3.54:8000/reviews/best').then(data => {
       setBestReview(data.data.results);
     });
   }, []);
 
   useEffect(() => {
-    axios.get('http://10.58.4.207:8000/reviews/ranking').then(data => {
+    axios.get('http://3.35.3.54:8000/reviews/ranking').then(data => {
       setReviewRanking(data.data.results);
       setCategory(data.data.results);
-      console.log(data.data.results[0]);
     });
   }, []);
 
@@ -154,7 +153,7 @@ const Main = () => {
             </ChipContainer>
             <TopReviewWrapper>
               <ChartBox>
-                <MockBarChart />
+                <MockBarChart category={category} />
                 {/* <ChartImg src="/Chart.png" /> */}
               </ChartBox>
               <TopReviewItems>
@@ -187,6 +186,7 @@ const Main = () => {
                               <CategoryReviewItem
                                 product={review.product_name}
                                 productId={review.product_id}
+                                productPrice={review.product_price}
                                 img={review.product_thumbnail}
                               />
                             );

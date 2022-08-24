@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -38,17 +40,31 @@ function a11yProps(index) {
 }
 
 const RelatedCategory = ({
+  productId,
   productName,
   category,
   getCategoryName,
   relatedList,
 }) => {
   const [value, setValue] = React.useState(0);
+  const [itemsList, setItemsList] = useState([]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  console.log('related', category[0]);
+  // console.log('real', category[0]?.sub_category_name);
+
+  const getCategoryData = id => {
+    axios
+      .get(
+        `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
+      )
+      .then(data => {
+        console.log(data);
+        setItemsList(data.data.results);
+      });
+  };
 
   return (
     <CategoryContainer>
@@ -56,18 +72,7 @@ const RelatedCategory = ({
       <SubText>{productName}의 최근 한 달간 구매 내역 기준</SubText>
       <CategoryWrapper>
         <ChipsContainer>
-          <CategoryStack direction="row" spacing={1}>
-            {category?.map((item, index) => {
-              return (
-                <CategoryTab
-                  key={index}
-                  label={item.sub_category_name}
-                  variant="outlined"
-                  onClick={getCategoryName}
-                />
-              );
-            })}
-          </CategoryStack>
+          <CategoryStack direction="row" spacing={1} />
         </ChipsContainer>
         <ChartWrapper>
           <ChartBox>
@@ -84,26 +89,33 @@ const RelatedCategory = ({
                 indicatorColor="secondary"
                 variant="fullWidth"
               >
-                {relatedList?.map((item, index) => {
-                  return (
-                    <Tab label={item.sub_category_name} {...a11yProps(index)} />
-                  );
-                })}
+                {category?.map(
+                  ({ index, sub_category_name, sub_category_id }) => {
+                    return (
+                      <Tab
+                        onClick={() => {
+                          // e.preventDefault();
+                          getCategoryData(sub_category_id);
+                        }}
+                        label={sub_category_name}
+                        {...a11yProps(index)}
+                      />
+                    );
+                  }
+                )}
               </Tabs>
             </Box>
             <Box>
-              {relatedList?.map((item, index) => {
+              {itemsList?.map((item, index) => {
+                console.log(item);
                 return (
-                  <TabPanelContent value={value} index={index}>
+                  <TabPanelContent key={index} value={value} index={index}>
                     <PanelFlexBox>
-                      {item?.product.map(review => {
-                        return (
-                          <CategoryReviewItem
-                            product={review.product_name}
-                            img={review.product_thumbnail}
-                          />
-                        );
-                      })}
+                      <CategoryReviewItem
+                        product={item.product_name}
+                        img={item.product_thumbnail}
+                        productPrice={item.product_price}
+                      />
                     </PanelFlexBox>
                   </TabPanelContent>
                 );
