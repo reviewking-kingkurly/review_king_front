@@ -45,6 +45,9 @@ const ProductDetail = () => {
   const { id } = useParams();
 
   const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const [productDetail, setProductDetail] = useState([]);
   useEffect(() => {
@@ -75,9 +78,6 @@ const ProductDetail = () => {
   const productImg = productDetail?.product_thumbnail;
   const productId = productDetail?.product_id;
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const [category, setCategory] = useState([]);
   useEffect(() => {
     axios
@@ -88,18 +88,22 @@ const ProductDetail = () => {
       });
   }, []);
 
-  const [relatedList, setRelatedList] = useState([]);
-  useEffect(() => {
-    axios.get(`http://3.35.3.54:8000/reviews/ranking`).then(data => {
-      setRelatedList(data.data.results);
-    });
-  }, []);
-
   const [chipName, setChipName] = useState('');
 
   const getCategoryName = e => {
     const categoryName = e.target.innerText;
     setChipName(categoryName);
+  };
+
+  const getSubCategory = id => {
+    axios
+      .get(
+        `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
+      )
+      .then(data => {
+        console.log('getCategory', data);
+        // setItemsList(data.data.results);
+      });
   };
 
   return (
@@ -154,7 +158,6 @@ const ProductDetail = () => {
                 productId={id}
                 category={category}
                 getCategoryName={getCategoryName}
-                relatedList={relatedList}
               />
               <Divider
                 sx={{

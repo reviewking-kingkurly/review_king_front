@@ -11,6 +11,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import CategoryReviewItem from '../../Main/components/CategoryReviewItem';
 import MockDonutChart from './MockDonutChart';
+import Props from './Props';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,7 +45,6 @@ const RelatedCategory = ({
   productName,
   category,
   getCategoryName,
-  relatedList,
 }) => {
   const [value, setValue] = React.useState(0);
   const [itemsList, setItemsList] = useState([]);
@@ -53,16 +53,15 @@ const RelatedCategory = ({
     setValue(newValue);
   };
 
-  // console.log('real', category[0]?.sub_category_name);
-
   const getCategoryData = id => {
     axios
       .get(
         `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
       )
       .then(data => {
-        console.log('getCategory', data);
+        // console.log('getCategory', data);
         setItemsList(data.data.results);
+        // alert(data.data);
       });
   };
 
@@ -76,7 +75,6 @@ const RelatedCategory = ({
         </ChipsContainer>
         <ChartWrapper>
           <ChartBox>
-            {/* <ChartImg src="/Doughnut.png" /> */}
             <MockDonutChart category={category} />
           </ChartBox>
           <CategoryItems>
@@ -89,24 +87,20 @@ const RelatedCategory = ({
                 indicatorColor="secondary"
                 variant="fullWidth"
               >
-                {category?.map(
-                  ({ index, sub_category_name, sub_category_id }) => {
-                    return (
-                      <Tab
-                        onClick={() => {
-                          // e.preventDefault();
-                          getCategoryData(sub_category_id);
-                        }}
-                        label={sub_category_name}
-                        {...a11yProps(index)}
-                      />
-                    );
-                  }
-                )}
+                {category?.map((item, index) => {
+                  return (
+                    <Tab label={item.sub_category_name} {...a11yProps(index)} />
+                  );
+                })}
               </Tabs>
             </Box>
             <Box>
-              {itemsList?.map((item, index) => {
+              {/* 0: {sub_category_id: 35, sub_category_name: '우유', sub_category_count: 4, sub_category_share: 36}
+1: {sub_category_id: 10, sub_category_name: '바나나', sub_category_count: 3, sub_category_share: 27}
+2: {sub_category_id: 26, sub_category_name: '베이컨', sub_category_count: 2, sub_category_share: 18}
+3: {sub_category_id: 34, sub_category_name: '밀가루', sub_category_count: 1, sub_category_share: 9}
+4: {sub_category_id: 4, sub_category_name: '양파', sub_category_count: 1, sub_category_share: 9} */}
+              {/* {itemsList?.map((item, index) => {
                 console.log(item);
                 return (
                   <TabPanelContent key={index} value={value} index={index}>
@@ -118,6 +112,12 @@ const RelatedCategory = ({
                       />
                     </PanelFlexBox>
                   </TabPanelContent>
+                );
+              })} */}
+
+              {category?.map((item, index) => {
+                return (
+                  <Props item={item} productId={productId} index={index} />
                 );
               })}
             </Box>
