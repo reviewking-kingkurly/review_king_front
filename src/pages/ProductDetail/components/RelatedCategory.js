@@ -135,8 +135,9 @@ const RelatedCategory = ({
 export default RelatedCategory;
 
 const Heading = styled('div')`
-  width: 17.125rem;
-  height: 0.5rem;
+  width: 25rem;
+  height: 2.3rem;
+  margin-top: 1.3rem;
 
   font-weight: 600;
   font-size: 1.125rem;
@@ -146,7 +147,7 @@ const Heading = styled('div')`
 `;
 
 const SubText = styled('div')`
-  width: 18.5rem;
+  width: 25rem;
   height: 0.5rem;
 
   font-weight: 700;

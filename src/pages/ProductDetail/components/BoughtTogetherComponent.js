@@ -15,7 +15,7 @@ const BoughtTogetherComponent = ({
       <SubText>{productName}의 최근 한 달간 구매 내역 기준</SubText>
       <TogetherWrapper>
         <TogetherItems>
-          {boughtTogether.map(item => {
+          {boughtTogether?.map(item => {
             return (
               <BoughtTogetherItem
                 key={item.review_id}
@@ -35,8 +35,9 @@ const BoughtTogetherComponent = ({
 export default BoughtTogetherComponent;
 
 const Heading = styled('div')`
-  width: 17.125rem;
-  height: 0.5rem;
+  width: 25rem;
+  height: 2.3rem;
+  margin-top: 0.5rem;
 
   font-weight: 600;
   font-size: 1.125rem;
@@ -46,7 +47,7 @@ const Heading = styled('div')`
 `;
 
 const SubText = styled('div')`
-  width: 18.5rem;
+  width: 25rem;
   height: 0.5rem;
 
   font-weight: 700;

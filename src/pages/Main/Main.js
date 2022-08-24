@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -15,6 +16,7 @@ import CategoryReviewItem from './components/CategoryReviewItem';
 import axios from 'axios';
 import MockBarChart from '../ProductDetail/components/MockBarChart';
 import { IP } from '../../config';
+import { Navigate } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,6 +46,12 @@ function a11yProps(index) {
 }
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.getItem('access_token') || navigate('/login');
+  });
+
   const [bestReview, setBestReview] = useState([]);
   const [reviewRanking, setReviewRanking] = useState([]);
   const [category, setCategory] = useState([]);
@@ -86,6 +94,8 @@ const Main = () => {
     const categoryName = e.target.innerText;
     setChipName(categoryName);
   };
+
+  // console.log(reviewRanking);
 
   return (
     <MainContainer component="main" maxWidth="lg">
@@ -160,7 +170,6 @@ const Main = () => {
             <TopReviewWrapper>
               <ChartBox>
                 <MockBarChart category={category} />
-                {/* <ChartImg src="/Chart.png" /> */}
               </ChartBox>
               <TopReviewItems>
                 <Box sx={{ width: '100%' }}>
@@ -199,7 +208,6 @@ const Main = () => {
                                 product={review.product_name}
                                 price={review.product_price}
                                 productId={review.product_id}
-                                productPrice={review.product_price}
                                 img={review.product_thumbnail}
                               />
                             );

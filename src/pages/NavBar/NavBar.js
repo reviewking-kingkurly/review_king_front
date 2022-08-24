@@ -33,13 +33,15 @@ const NavBar = () => {
   };
 
   const getUserGrade = () => {
-    const grade = localStorage.getItem('user_grade');
-    setUserName(localStorage.getItem('user_name'));
-    setGradeInfo({
-      ...gradeInfo,
-      name: MEMBER_GRADE[grade - 1].name,
-      color: MEMBER_GRADE[grade - 1].color,
-    });
+    if (localStorage.getItem('access_token')) {
+      const grade = localStorage.getItem('user_grade');
+      setUserName(localStorage.getItem('user_name'));
+      setGradeInfo({
+        ...gradeInfo,
+        name: MEMBER_GRADE[grade - 1].name,
+        color: MEMBER_GRADE[grade - 1].color,
+      });
+    }
   };
 
   useEffect(() => {

@@ -7,11 +7,13 @@ const GeneralReviewComponent = ({ name, liked, content, img, date }) => {
   return (
     <GeneralReviewBox>
       <Box>
-        <Rank label="라벤더" />
-        <GeneralReview>
-          <UserName>{name}</UserName>고객님의 리뷰
-        </GeneralReview>
-        <Liked>도움 {liked}</Liked>
+        <UserInfoBox>
+          <Rank label="라벤더" />
+          <GeneralReview>
+            <UserName>{name}</UserName>고객님의 리뷰
+          </GeneralReview>
+          <Liked>도움 {liked}</Liked>
+        </UserInfoBox>
         <Date>{date}</Date>
         <ReviewBoxContent>{content}</ReviewBoxContent>
       </Box>
@@ -24,7 +26,12 @@ export default GeneralReviewComponent;
 
 const GeneralReviewBox = styled(Box)`
   display: flex;
-  align-items: end;
+  align-items: center;
+`;
+
+const UserInfoBox = styled(Box)`
+  height: 2rem;
+  margin-top: 1rem;
 `;
 
 const Liked = styled('div')`
@@ -42,7 +49,7 @@ const Liked = styled('div')`
 const Date = styled('div')`
   width: 100px;
   height: 12px;
-  margin-top: 1px;
+  margin: 0.2rem 0;
 
   font-weight: 400;
   font-size: 13px;
@@ -55,6 +62,7 @@ const ReviewBoxContent = styled('div')`
   width: 415px;
   height: 42px;
   margin-right: 10px;
+  margin-top: 1rem;
 
   font-weight: 400;
   font-size: 13px;
@@ -89,7 +97,7 @@ const Rank = styled(Chip)`
 const GeneralReview = styled('div')`
   display: inline-block;
   width: 125px;
-  height: 16px;
+  height: 20px;
 
   font-weight: 600;
   font-size: 14px;
@@ -100,6 +108,5 @@ const GeneralReview = styled('div')`
 
 const UserName = styled('div')`
   display: inline;
-
   text-align: center;
 `;

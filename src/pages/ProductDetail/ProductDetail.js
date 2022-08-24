@@ -115,7 +115,7 @@ const ProductDetail = () => {
             </ProductNameBox>
             <PriceBox>
               <Price>{productPrice}</Price>
-              <PriceWon>원</PriceWon>
+              <PriceWon> 원</PriceWon>
             </PriceBox>
           </DescriptionContainer>
           <Hr />
@@ -191,6 +191,7 @@ const ProductDetailContainer = styled(Container)`
 
 const DescriptionWrapper = styled(Container)`
   display: flex;
+  align-items: center;
 `;
 
 const ImgContainer = styled(Container)`
@@ -205,12 +206,17 @@ const ProductImg = styled('img')`
 
 const RightContainer = styled(Container)``;
 const DescriptionContainer = styled(Container)``;
-const ProductNameBox = styled(Box)``;
-const PriceBox = styled(Box)``;
+const ProductNameBox = styled(Box)`
+  height: 5rem;
+  width: 9rem;
+`;
+const PriceBox = styled(Box)`
+  width: 9rem;
+`;
 
 const ProductName = styled('div')`
   width: 25rem;
-  height: 2.063rem;
+  height: 2.5rem;
 
   font-weight: 600;
   font-size: 1.5rem;
@@ -233,7 +239,7 @@ const Description = styled('div')`
 const Price = styled('div')`
   display: inline-block;
 
-  width: 4.5rem;
+  width: 5rem;
   height: 2.375rem;
 
   font-weight: 600;
@@ -246,7 +252,7 @@ const Price = styled('div')`
 const PriceWon = styled('div')`
   display: inline-block;
 
-  width: 1.688rem;
+  width: 2rem;
   height: 1.563rem;
 
   font-weight: 600;
@@ -257,8 +263,8 @@ const PriceWon = styled('div')`
 `;
 
 const Hr = styled(Divider)`
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 `;
 
 const BottomContainer = styled(Container)`

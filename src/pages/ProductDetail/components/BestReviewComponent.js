@@ -7,7 +7,7 @@ const BestReviewComponent = () => {
     <BestReviewBox
       sx={{
         display: 'flex',
-        alignItems: 'end',
+        alignItems: 'center',
       }}
     >
       <Box>
@@ -35,7 +35,8 @@ const BestReviewBox = styled(Box)``;
 const BestReview = styled('div')`
   display: inline-block;
   width: 100px;
-  height: 16px;
+  height: 18px;
+  margin-bottom: 0.2rem;
 
   font-weight: 600;
   font-size: 15px;
@@ -59,7 +60,7 @@ const Liked = styled('div')`
 const Date = styled('div')`
   width: 100px;
   height: 12px;
-  margin-top: 1px;
+  margin: 1px 0 0.2rem 1px;
 
   font-weight: 400;
   font-size: 13px;
