@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 
-const BestReviewItem = ({ product, price, review, thumbnail, productId }) => {
+const BestReviewItem = ({ reviewId, product, price, review, thumbnail }) => {
   const navigate = useNavigate();
   const goToDetail = () => {
-    navigate(`/review_post/${productId}`);
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    navigate(`/review/${reviewId}`);
   };
 
   return (
