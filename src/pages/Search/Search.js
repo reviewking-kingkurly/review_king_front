@@ -56,7 +56,7 @@ const Search = () => {
                         <ProductThumbnail thumbnail={list.product_thumbnail} />
                         <ProductName>{list.product_name}</ProductName>
                         <ProductPrice>
-                          {list.product_price.replace(
+                          {list?.product_price.replace(
                             /\B(?=(\d{3})+(?!\d))/g,
                             ','
                           )}{' '}

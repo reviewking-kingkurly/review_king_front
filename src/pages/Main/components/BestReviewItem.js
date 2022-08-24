@@ -14,7 +14,7 @@ const BestReviewItem = ({ reviewId, product, price, review, thumbnail }) => {
       <RectangleImg src={thumbnail} />
       <ReviewBox>
         <ItemTitle>{product}</ItemTitle>
-        <Price>{price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</Price>
+        <Price>{price?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</Price>
         <Review>{review}</Review>
       </ReviewBox>
     </ItemWrapper>
