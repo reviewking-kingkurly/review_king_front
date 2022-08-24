@@ -7,34 +7,101 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import BarChartCategory from '../../Main/components/BarChartCategory';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
-export const options = {
-  plugins: {
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
-};
+// export const options = {
+//   plugins: {
+//     title: {
+//       display: true,
+//       text: 'BEST 카테고리',
+//     },
+//   },
+// };
 
-const labels = ['January', 'February', 'March', 'April'];
+// const labels = [];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [1, 2, 3, 4],
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
+// export const data = {
+//   labels,
+//   datasets: [
+//     {
+//       data: [],
+//       backgroundColor: ['red', 'blue', 'gray', 'violet', 'purple'],
+//     },
+//   ],
+// };
 
-const MockBarChart = () => {
-  return <Bar options={options} data={data} />;
+const MockBarChart = ({ category }) => {
+  // const options = {
+  //   plugins: {
+  //     title: {
+  //       display: true,
+  //       text: 'BEST 카테고리',
+  //     },
+  //   },
+  // };
+
+  // const labels = [1, 2, 3, 4];
+
+  // const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       data: [1, 2, 3, 4],
+  //       backgroundColor: ['red', 'blue', 'gray', 'violet', 'purple'],
+  //     },
+  //   ],
+  // };
+
+  // const dataSet = data.datasets[0].data;
+
+  const getLabel = arr => {
+    const labelArr = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      labelArr.push(arr[i].sub_category_name);
+    }
+    return labelArr;
+  };
+
+  const getCount = arr => {
+    const countArr = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      countArr.push(arr[i].review_count);
+    }
+    return countArr;
+  };
+
+  const labelData = [...getLabel(category)];
+  const countData = [...getCount(category)];
+  // useEffect(() => {
+  //   const labelData = [...getLabel(category)];
+  //   const countData = [...getCount(category)];
+
+  //   console.log('this is category name', labelData);
+  //   console.log('this is category count', countData);
+
+  //   labels.concat(...labelData);
+  //   dataSet.concat(...countData);
+
+  //   console.log('labels', labels);
+  //   console.log('count', dataSet);
+  // }, [category, labels, dataSet]);
+
+  // console.log(labels);
+  // labels.push(...labelData);
+  // dataSet.push(...countData);
+  // return <Bar options={options} data={data} />;
+
+  return (
+    <BarChartCategory
+      category={category}
+      labelData={labelData}
+      countData={countData}
+    />
+  );
 };
 
 export default MockBarChart;
