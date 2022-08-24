@@ -51,7 +51,7 @@ const ReviewPanelContent = ({ username, rank, date, img, liked, content }) => {
             <ItemWrapper>
               <RectangleImg src="/Mock_Rectangle.png" />
               <RecommendationItem>
-                <ItemTitle>[DOLE] 스위티오 실속 파인애플 700g(1통)</ItemTitle>
+                <ItemTitle>[홍루이젠] 대만 샌드위치 3종</ItemTitle>
                 <ItemPrice>3,450원</ItemPrice>
               </RecommendationItem>
             </ItemWrapper>
@@ -101,12 +101,14 @@ const UserName = styled(Box)`
   display: flex;
   align-items: center;
   margin-right: 10px;
+  margin-bottom: 0.3rem;
+  height: 1rem;
 `;
 
 const Rank = styled(Chip)`
   width: 55px;
   height: 20px;
-  margin-right: 5px;
+  margin-right: 0.3rem;
 
   font-weight: 600;
   font-size: 10px;
@@ -160,7 +162,7 @@ const RecommendationBox = styled(Box)`
 
 const Recommendation = styled('div')`
   width: 98px;
-  height: 19px;
+  height: 2rem;
 
   font-weight: 600;
   font-size: 14px;
@@ -201,6 +203,7 @@ const RectangleImg = styled('img')`
 const ItemTitle = styled('div')`
   width: 95px;
   height: 29px;
+  margin: 0.3rem 0 0.4rem 0;
 
   font-weight: 600;
   font-size: 10px;
@@ -218,6 +221,7 @@ const RecommendationItem = styled(Box)`
 const ItemPrice = styled('div')`
   width: 42px;
   height: 15px;
+  margin-top: 0.4rem;
 
   font-weight: 600;
   font-size: 11px;
