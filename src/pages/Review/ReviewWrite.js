@@ -33,6 +33,8 @@ const ReviewWrite = () => {
       .then(res => res.json())
       .then(data => {
         if (!(data => data.results === '')) {
+          alert('data.message');
+        } else {
           setOrdered(data.results);
         }
       });
@@ -121,13 +123,15 @@ const ReviewWrite = () => {
                 <ProductName>{product_name}</ProductName>
                 <Description>{product_description}</Description>
                 <Amount>{product_quantity} 개</Amount>
-                <DeliveryDate>
-                  {`${delivery_date[0].substr(
-                    5,
-                    2
-                  )}월 ${delivery_date[0].substr(8, 2)}일`}
-                  <span>{order_status}</span>
-                </DeliveryDate>
+                {delivery_date[0] && (
+                  <DeliveryDate>
+                    {`${delivery_date[0].substr(
+                      5,
+                      2
+                    )}월 ${delivery_date[0].substr(8, 2)}일`}
+                    <span>{order_status}</span>
+                  </DeliveryDate>
+                )}
               </DescriptionWrapper>
             </Product>
             <InputWrapper>

@@ -48,8 +48,6 @@ const RelatedCategory = ({
     setValue(newValue);
   };
 
-  console.log('related', category[0]);
-
   return (
     <CategoryContainer>
       <Heading>연관 카테고리도 살펴보고 가세요! ✨</Heading>
