@@ -61,7 +61,7 @@ const RelatedCategory = ({
         `http://3.35.3.54:8000/products/${productId}/related_prod?sub_category=${id}`
       )
       .then(data => {
-        console.log(data);
+        console.log('getCategory', data);
         setItemsList(data.data.results);
       });
   };
@@ -77,7 +77,7 @@ const RelatedCategory = ({
         <ChartWrapper>
           <ChartBox>
             {/* <ChartImg src="/Doughnut.png" /> */}
-            <MockDonutChart />
+            <MockDonutChart category={category} />
           </ChartBox>
           <CategoryItems>
             <Box sx={{ width: '100%' }}>
