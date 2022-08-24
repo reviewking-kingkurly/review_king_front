@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Chip from '@mui/material/Chip';
 import { Box } from '@mui/system';
-import { Navigate } from 'react-router-dom';
 
 const NavBar = () => {
   const navigate = useNavigate();
