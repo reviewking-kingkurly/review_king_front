@@ -1,12 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Chip from '@mui/material/Chip';
 import { Box } from '@mui/system';
+import { Navigate } from 'react-router-dom';
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate('/');
+  };
+
   return (
     <Nav>
-      <Logo src="/Logo.png" />
+      <Logo onClick={goToMain} src="/Logo.png" />
       <SearchBar placeholder="검색어를 입력해주세요" />
       <UserInfo>
         <UserName>
@@ -36,6 +43,9 @@ const Nav = styled('div')`
 const Logo = styled('img')`
   width: 11.313rem;
   height: 5.125rem;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const SearchBar = styled('input')`
